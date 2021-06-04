@@ -14,7 +14,6 @@
         <webdrivermanager.version>4.2.2</webdrivermanager.version>
         <aspectj.version>1.9.5</aspectj.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
