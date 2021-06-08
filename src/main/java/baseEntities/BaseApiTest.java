@@ -12,6 +12,8 @@ public class BaseApiTest {
 
     @BeforeTest
     public void setupTest() {
+        org.apache.log4j.BasicConfigurator.configure();
+
         RestAssured.baseURI = ReadProperties.getAPIUrl();
         RestAssured.requestSpecification = given()
                 .header(HTTP.CONTENT_TYPE, ContentType.JSON)
