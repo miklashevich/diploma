@@ -2,7 +2,7 @@ package helpers.project;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.Project;
+import models.project.Project;
 import org.apache.log4j.Logger;
 
 import static io.restassured.RestAssured.given;
