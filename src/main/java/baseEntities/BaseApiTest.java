@@ -17,9 +17,6 @@ public class BaseApiTest {
         RestAssured.baseURI = ReadProperties.getAPIUrl();
         RestAssured.requestSpecification = given()
                 .header(HTTP.CONTENT_TYPE, ContentType.JSON)
-                .header("Token", ReadProperties.getAuthToken())
-                .auth()
-                .preemptive()
-                .basic(ReadProperties.getUsername(), ReadProperties.getPassword());
+                .header("Token", ReadProperties.getAuthToken());
     }
 }
