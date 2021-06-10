@@ -12,7 +12,11 @@ import lombok.experimental.Accessors;
 @Data
 @ToString
 @Accessors(chain = true)
-public class Project {
+public class GetProjectResponse {
+
+    @NotNull
+    @Expose
+    private boolean status;
 
     @NotNull
     @Expose

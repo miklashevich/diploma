@@ -2,7 +2,7 @@ package apiTests;
 
 import baseEntities.BaseApiTest;
 import helpers.project.ProjectHelper;
-import models.project.Project;
+import models.project.GetProjectResponse;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -30,9 +30,10 @@ public class projectsTest extends BaseApiTest {
     public void getProjectTest() throws IOException {
         Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/testData/expectedProject.json"));
 
-        Project expectedProject = ObjectUtil.getObjectFromJson(reader, Project.class);
-        Project actualProject = projectHelper.getProject("TP");
+        GetProjectResponse expectedProject = ObjectUtil.getObjectFromJson(reader, GetProjectResponse.class);
+        GetProjectResponse actualProject = projectHelper.getProject("TP");
         System.out.println("Expected project code: " + expectedProject);
+        System.out.println("Actual project code: " + actualProject);
         Assert.assertEquals(expectedProject, actualProject);
 
     }
