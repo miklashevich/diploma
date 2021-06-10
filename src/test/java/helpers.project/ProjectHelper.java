@@ -23,12 +23,39 @@ public class ProjectHelper {
     }
 
     public GetProjectResponse getProject(String projectCode) {
-         String body = given()
+        String body = given()
                 .when()
                 .get("/v1/project/" + projectCode)
                 .body()
                 .asString();
 
-         return gson.fromJson(body, GetProjectResponse.class);
+        return gson.fromJson(body, GetProjectResponse.class);
+    }
+
+    public String getNonExistProject(String projectCode) {
+        return given()
+                .when()
+                .get("/v1/project/" + projectCode)
+                .then()
+                .extract().jsonPath().get("errorMessage");
+
+    }
+
+    public int deleteOneTestCase(String projectCode, String id) {
+        return given()
+                .when()
+                .delete("/v1/case/" + projectCode + "/" + id)
+                .getStatusCode();
+
+    }
+
+    public String deleteNonExistTestCase(String projectCode, String id) {
+        return given()
+                .when()
+                .delete("/v1/case/" + projectCode + "/" + id)
+                .then()
+                .extract().jsonPath().get("errorMessage");
+
+
     }
 }

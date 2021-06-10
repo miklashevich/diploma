@@ -3,6 +3,7 @@ package apiTests;
 import baseEntities.BaseApiTest;
 import helpers.project.ProjectHelper;
 import models.project.GetProjectResponse;
+import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -35,6 +36,28 @@ public class projectsTest extends BaseApiTest {
         System.out.println("Expected project code: " + expectedProject);
         System.out.println("Actual project code: " + actualProject);
         Assert.assertEquals(expectedProject, actualProject);
+
+    }
+
+    @Test
+    public void getNonExistProjectTest()  {
+        String response = projectHelper.getNonExistProject("rtt");
+        Assert.assertEquals(response, "Project is not found.");
+
+    }
+
+    @Test
+    public void deleteTestCaseTest() {
+
+        int response = projectHelper.deleteOneTestCase("TDT", "10");
+        Assert.assertEquals(response, HttpStatus.SC_OK);
+
+    }
+    @Test
+    public void deleteNonExistTestCaseTest() {
+
+        String response = projectHelper.deleteNonExistTestCase("TDT", "5");
+        Assert.assertEquals(response, "Test case not found");
 
     }
 }
