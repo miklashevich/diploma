@@ -1,7 +1,20 @@
 {
-  "title": "Test Project",
-  "code": "TP",
-  "description": "",
-  "access": "all",
-  "group": ""
+  "status": true,
+  "result": {
+    "title": "Test Project",
+    "code": "TP",
+    "counts": {
+      "cases": 1,
+      "suites": 1,
+      "milestones": 0,
+      "runs": {
+        "total": 0,
+        "active": 0
+      },
+      "defects": {
+        "total": 0,
+        "open": 0
+      }
+    }
+  }
 }
