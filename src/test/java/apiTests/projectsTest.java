@@ -41,7 +41,7 @@ public class projectsTest extends BaseApiTest {
 
     @Test
     public void getNonExistProjectTest()  {
-        String response = projectHelper.getNonExistProject("rtt");
+        String response = projectHelper.getNonExistingProject("rtt");
         Assert.assertEquals(response, "Project is not found.");
 
     }
@@ -54,10 +54,9 @@ public class projectsTest extends BaseApiTest {
 
     }
     @Test
-    public void deleteNonExistTestCaseTest() {
+    public void deleteNonExistingTestCaseTest() {
 
-        String response = projectHelper.deleteNonExistTestCase("TDT", "5");
+        String response = projectHelper.deleteNonExistingTestCase("TDT", "5");
         Assert.assertEquals(response, "Test case not found");
-
     }
 }
