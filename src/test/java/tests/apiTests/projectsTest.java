@@ -1,4 +1,4 @@
-package apiTests;
+package tests.apiTests;
 
 import baseEntities.BaseApiTest;
 import helpers.project.ProjectHelper;
@@ -35,8 +35,10 @@ public class projectsTest extends BaseApiTest {
 
         GetProjectResponse expectedProject = ObjectUtil.getObjectFromJson(reader, GetProjectResponse.class);
         GetProjectResponse actualProject = projectHelper.getProject("TP");
+
         System.out.println("Expected project code: " + expectedProject);
         System.out.println("Actual project code: " + actualProject);
+
         Assert.assertEquals(expectedProject, actualProject);
     }
 

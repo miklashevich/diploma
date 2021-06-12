@@ -21,6 +21,10 @@ public class ReadProperties {
         return properties.getProperty("api_url");
     }
 
+    public static String getBaseUrl() {
+        return properties.getProperty("base_url");
+    }
+
     public static String getAuthToken() {
         return properties.getProperty("token");
     }
@@ -31,5 +35,13 @@ public class ReadProperties {
 
     public static String getPassword() {
         return properties.getProperty("password");
+    }
+
+    public static String getBrowser() {
+        return properties.getProperty("browser");
+    }
+
+    public static int getTimeout() {
+        return Integer.parseInt(properties.getProperty("timeout"));
     }
 }
