@@ -2,6 +2,8 @@ package models.project;
 
 import com.google.gson.annotations.Expose;
 import com.sun.istack.NotNull;
+import enums.AccessType;
+import io.restassured.mapper.ObjectMapper;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -9,17 +11,22 @@ import lombok.experimental.Accessors;
 @Data
 @ToString
 @Accessors(chain = true)
-public class Result {
+public class Project {
 
     @NotNull
     @Expose
     private String title;
-
     @NotNull
     @Expose
     private String code;
-
-    public String getCode() {
-        return code;
-    }
+    @Expose
+    private String description;
+    @NotNull
+    @Expose
+    private AccessType access;
+    @Expose
+    /**
+     Required if access param is set to 'group'
+     **/
+    private String group;
 }
