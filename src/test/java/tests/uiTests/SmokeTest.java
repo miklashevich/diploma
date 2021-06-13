@@ -15,5 +15,7 @@ public class SmokeTest extends BaseTest {
                 .openLoginPage()
                 .loginWithCorrectCredentials()
                 .openProjectsPage(false);
+
+
     }
 }

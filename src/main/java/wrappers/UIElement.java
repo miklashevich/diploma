@@ -88,7 +88,7 @@ public class UIElement implements WebElement {
 
     @Override
     public boolean isDisplayed() {
-        return false;
+        return webElement.isDisplayed();
     }
 
     @Override

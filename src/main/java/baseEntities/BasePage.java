@@ -1,6 +1,7 @@
 package baseEntities;
 
 import core.BrowserService;
+import org.openqa.selenium.Alert;
 
 public abstract class BasePage {
 
@@ -36,5 +37,6 @@ public abstract class BasePage {
             throw new AssertionError("Page was not opened");
         }
     }
+
 
 }
