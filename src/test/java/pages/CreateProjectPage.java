@@ -15,7 +15,6 @@ public class CreateProjectPage extends BasePage {
     private static final By projectNameBy = By.id("inputTitle");
     private static final By projectCodeBy = By.id("inputCode");
     private static final By descriptionBy = By.id("inputDescription");
-    private static final By selectTypeBy = By.name("access_type");
     private static final By privateAccessTypeBy = By.id("private-access-type");
     private static final By publicAccessTypeBy = By.id("public-access-type");
 

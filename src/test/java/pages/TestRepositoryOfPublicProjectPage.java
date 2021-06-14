@@ -2,21 +2,19 @@ package pages;
 
 import baseEntities.BasePage;
 import core.BrowserService;
-import core.ReadProperties;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import wrappers.Button;
-import wrappers.UIElement;
 
 
-public class TestRepositoryPage extends BasePage {
-    //private static final String ENDPOINT = "";
-    private static final By createNewTestCaseButtonBy = By.xpath("//a[contains(text(),'Create new case')]");
+public class TestRepositoryOfPublicProjectPage extends BasePage {
+
+    private static final By createNewTestCaseButtonBy = By.id("create-case-button");
     private static final By testRepositoryTitleBy = By.xpath("//h1[contains(text(),'Test repository')]");
     private static final By testRepositoryNameBy = By.xpath("//p[@class = 'header']");
+    private static final String testCaseNameBy = "//*[@class = 'case-row-title' and contains(text(), 'remove')]";
 
-    public TestRepositoryPage(BrowserService browserService, boolean openPageByUrl) {
+    public TestRepositoryOfPublicProjectPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
     }
 
@@ -44,5 +42,9 @@ public class TestRepositoryPage extends BasePage {
 
     public WebElement getTestRepositoryName() {
         return browserService.getWait().waitForVisibility(testRepositoryNameBy);
+    }
+
+    public WebElement getTestCaseName(String testCaseName) {
+        return browserService.getDriver().findElement(By.xpath(testCaseNameBy.replace("remove", testCaseName)));
     }
 }

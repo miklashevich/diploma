@@ -4,12 +4,14 @@ import baseEntities.BasePage;
 import core.BrowserService;
 import core.ReadProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import wrappers.Button;
 
 public class ProjectsPage extends BasePage {
 
     private static final String ENDPOINT = "/projects";
     private static final By createNewProjectButtonBy = By.id("createButton");
+    private static final String projectNameTitleBy = "//a[. = 'remove']";
 
     public ProjectsPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -31,5 +33,9 @@ public class ProjectsPage extends BasePage {
 
     public Button getCreateNewProjectButton() {
         return new Button(browserService.getDriver(), createNewProjectButtonBy);
+    }
+
+    public WebElement getProjectNameTitle(String projectName) {
+        return browserService.getWait().waitForVisibility(By.xpath(projectNameTitleBy.replace("remove", projectName)));
     }
 }

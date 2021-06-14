@@ -1,21 +1,44 @@
 package testData;
 
 import enums.AccessType;
+import enums.testCaseAttributes.SeverityAttribute;
 import models.project.Project;
+import models.testcase.TestCase;
 import org.testng.annotations.DataProvider;
 
 public class StaticProvider {
 
     @DataProvider(name = "Create project with the help of Builder")
     public Object[][] createProject() {
-        RandomString randomString = new RandomString();
+        RandomStringGenerator randomProjectName = new RandomStringGenerator();
+        final int randomStringLength = 255;
         return new Object[][]{
                 {"Project1", Project.builder()
-                        .title(randomString.randomString(255))
+                        .title(randomProjectName.randomString(randomStringLength))
                         .code("PB")
                         .description("ProjectBuilder Description")
                         .access(AccessType.ALL)
                         .build()
+                }
+        };
+    }
+
+    @DataProvider(name = "Create Test Case with the help of Builder")
+    public Object[][] createTestCase() {
+        RandomStringGenerator randomProjectName = new RandomStringGenerator();
+        final int randomStringLength = 255;
+        return new Object[][]{
+                {
+                        "TestCase1",
+
+                        Project.builder()
+                                .title("Test Project")
+                                .build(),
+
+                        TestCase.builder()
+                                .title("TestCase123")
+                                .severity(SeverityAttribute.CRITICAL)
+                                .build()
                 }
         };
     }

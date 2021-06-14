@@ -6,7 +6,7 @@ import io.qameta.allure.Step;
 import models.project.Project;
 import pages.CreateProjectPage;
 import pages.ProjectsPage;
-import pages.TestRepositoryPage;
+import pages.TestRepositoryOfPrivateProjectPage;
 
 public class ProjectsSteps extends BaseStep {
 
@@ -21,8 +21,8 @@ public class ProjectsSteps extends BaseStep {
         return this;
     }
 
-    @Step("new Project Data: 'project'")
-    public TestRepositoryPage addProject(Project project) {
+    @Step("Create New Project with the name length equals to 255 symbols: 'project'")
+    public TestRepositoryOfPrivateProjectPage addProject(Project project) {
         CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
 
         createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
@@ -40,6 +40,6 @@ public class ProjectsSteps extends BaseStep {
         }
         createProjectPage.createProjectButton().click();
 
-        return new TestRepositoryPage(browserService, false);
+        return new TestRepositoryOfPrivateProjectPage(browserService, false);
     }
 }
