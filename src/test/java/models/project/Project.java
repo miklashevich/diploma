@@ -4,12 +4,14 @@ import com.google.gson.annotations.Expose;
 import com.sun.istack.NotNull;
 import enums.AccessType;
 import io.restassured.mapper.ObjectMapper;
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
 @Data
 @ToString
+@Builder
 @Accessors(chain = true)
 public class Project {
 

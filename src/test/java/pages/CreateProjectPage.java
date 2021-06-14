@@ -36,17 +36,26 @@ public class CreateProjectPage extends BasePage {
     }
 
     public Button createProjectButton() {
-        return new Button(browserService.getWait().presenceOfElementLocated(createProjectButtonBy)); }
+        return new Button(browserService.getWait().presenceOfElementLocated(createProjectButtonBy));
+    }
+
     public UIElement getProjectNameInputBy() {
-        return   browserService.getWait().presenceOfElementLocated(projectNameBy); }
+        return browserService.getWait().presenceOfElementLocated(projectNameBy);
+    }
+
     public UIElement getProjectCodeInputBy() {
-        return   browserService.getWait().presenceOfElementLocated(projectCodeBy); }
+        return browserService.getWait().presenceOfElementLocated(projectCodeBy);
+    }
 
     public UIElement getDescriptionInputBy() {
-        return   browserService.getWait().presenceOfElementLocated(descriptionBy); }
+        return browserService.getWait().presenceOfElementLocated(descriptionBy);
+    }
 
-    public UIElement privateAccessTypeInput() {
-        return   browserService.getWait().presenceOfElementLocated(privateAccessTypeBy); }
-    public UIElement publicAccessTypeInput () {
-        return   browserService.getWait().presenceOfElementLocated(publicAccessTypeBy); }
+    public UIElement getPrivateAccessTypeInput() {
+        return browserService.getWait().presenceOfElementLocated(privateAccessTypeBy);
+    }
+
+    public UIElement getPublicAccessTypeInput() {
+        return browserService.getWait().presenceOfElementLocated(publicAccessTypeBy);
+    }
 }

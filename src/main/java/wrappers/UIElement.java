@@ -10,11 +10,13 @@ public class UIElement implements WebElement {
     private WebElement webElement;
     private Actions actions;
     private WebDriver webDriver;
+    private JavascriptExecutor jsExecutor;
 
     public UIElement(BrowserService browserService, By by) {
         this.webDriver = browserService.getDriver();
         this.webElement = webDriver.findElement(by);
         this.actions = new Actions(webDriver);
+        this.jsExecutor = (JavascriptExecutor) webDriver;
     }
 
     public UIElement(BrowserService browserService, WebElement webElement) {
@@ -28,11 +30,15 @@ public class UIElement implements WebElement {
         try {
             webElement.click();
         } catch (Exception ex) {
-            actions
-                    .moveToElement(this.webElement)
-                    .click()
-                    .build()
-                    .perform();
+            try {
+                actions
+                        .moveToElement(this.webElement)
+                        .click()
+                        .build()
+                        .perform();
+            } catch (Exception ex1) {
+                jsExecutor.executeScript("arguments[0].click();", webElement);
+            }
         }
     }
 
@@ -114,5 +120,11 @@ public class UIElement implements WebElement {
     @Override
     public <X> X getScreenshotAs(OutputType<X> target) throws WebDriverException {
         return null;
+    }
+
+    public UIElement getParent(BrowserService browserService) {
+        WebElement parent = (WebElement) ((JavascriptExecutor) webDriver).executeScript(
+                "return arguments[0].parentNode;", webElement);
+        return new UIElement(browserService, parent);
     }
 }

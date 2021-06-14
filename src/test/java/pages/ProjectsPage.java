@@ -4,7 +4,6 @@ import baseEntities.BasePage;
 import core.BrowserService;
 import core.ReadProperties;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import wrappers.Button;
 
 public class ProjectsPage extends BasePage {
@@ -30,9 +29,7 @@ public class ProjectsPage extends BasePage {
         }
     }
 
-
-    public Button createNewProjectButton() {
+    public Button getCreateNewProjectButton() {
         return new Button(browserService.getWait().presenceOfElementLocated(createNewProjectButtonBy));
     }
-
 }

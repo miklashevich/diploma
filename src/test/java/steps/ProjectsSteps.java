@@ -2,7 +2,8 @@ package steps;
 
 import baseEntities.BaseStep;
 import core.BrowserService;
-import models.project.ProjectLombokBuilder;
+import io.qameta.allure.Step;
+import models.project.Project;
 import pages.CreateProjectPage;
 import pages.ProjectsPage;
 import pages.TestRepositoryPage;
@@ -20,18 +21,25 @@ public class ProjectsSteps extends BaseStep {
         return this;
     }
 
-    public TestRepositoryPage addProject(ProjectLombokBuilder projectLombokBuilder) {
+    @Step("new Project Data: 'project'")
+    public TestRepositoryPage addProject(Project project) {
         CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
-        createProjectPage.getProjectNameInputBy().sendKeys(projectLombokBuilder.getName());
-        createProjectPage.getProjectCodeInputBy().sendKeys((projectLombokBuilder.getCode()));
-        createProjectPage.getDescriptionInputBy().sendKeys(projectLombokBuilder.getDescription());
 
-        if(projectLombokBuilder.getType().toString().equals("PRIVATE")) createProjectPage.privateAccessTypeInput().click();
-        if(projectLombokBuilder.getType().toString().equals("PUBLIC")) createProjectPage.publicAccessTypeInput().click();
+        createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
+        createProjectPage.getProjectCodeInputBy().sendKeys(project.getCode());
+        createProjectPage.getDescriptionInputBy().sendKeys(project.getDescription());
+        switch (project.getAccess()) {
+            case ALL:
+                createProjectPage.getPublicAccessTypeInput().click();
+                break;
+            case GROUP:
+                createProjectPage.getPrivateAccessTypeInput().click();
+                break;
+            default:
+                break;
+        }
         createProjectPage.createProjectButton().click();
 
         return new TestRepositoryPage(browserService, false);
-
     }
-
 }

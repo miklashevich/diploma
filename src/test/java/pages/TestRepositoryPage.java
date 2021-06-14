@@ -4,6 +4,7 @@ import baseEntities.BasePage;
 import core.BrowserService;
 import core.ReadProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import wrappers.Button;
 import wrappers.UIElement;
 
@@ -11,7 +12,8 @@ import wrappers.UIElement;
 public class TestRepositoryPage extends BasePage {
     //private static final String ENDPOINT = "";
     private static final By createNewTestCaseButtonBy = By.xpath("//a[contains(text(),'Create new case')]");
-    private static final By testRepositoryBy =By.xpath("//h1[contains(text(),'Test repository')]");
+    private static final By testRepositoryTitleBy = By.xpath("//h1[contains(text(),'Test repository')]");
+    private static final By testRepositoryNameBy = By.xpath("//p[@class = 'header']");
 
     public TestRepositoryPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -32,8 +34,14 @@ public class TestRepositoryPage extends BasePage {
     }
 
     public Button createNewTestCaseButton() {
-        return new Button(browserService.getWait().presenceOfElementLocated(createNewTestCaseButtonBy)); }
-    public UIElement testRepository() {
-        return   browserService.getWait().presenceOfElementLocated(testRepositoryBy); }
+        return new Button(browserService.getWait().presenceOfElementLocated(createNewTestCaseButtonBy));
+    }
 
+    public UIElement getTestRepositoryTitle() {
+        return browserService.getWait().presenceOfElementLocated(testRepositoryTitleBy);
+    }
+
+    public WebElement getTestRepositoryName() {
+        return browserService.getDriver().findElement(testRepositoryNameBy);
+    }
 }
