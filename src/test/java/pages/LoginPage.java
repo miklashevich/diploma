@@ -34,15 +34,15 @@ public class LoginPage extends BasePage {
         }
     }
 
-    public UIElement getEmailInput() {
-        return browserService.getWait().presenceOfElementLocated(emailInputBy);
+    public WebElement getEmailInput() {
+        return browserService.getWait().waitForVisibility(emailInputBy);
     }
 
-    public UIElement getPasswordInput() {
-        return browserService.getWait().presenceOfElementLocated(passwordInputBy);
+    public WebElement getPasswordInput() {
+        return browserService.getWait().waitForVisibility(passwordInputBy);
     }
 
     public Button getLoginButton() {
-        return new Button(browserService.getWait().presenceOfElementLocated(loginButtonBy));
+        return new Button(browserService.getDriver(), loginButtonBy);
     }
 }

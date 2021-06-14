@@ -4,7 +4,9 @@ import baseEntities.BasePage;
 import core.BrowserService;
 import core.ReadProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import wrappers.Button;
+import wrappers.RadioButton;
 import wrappers.UIElement;
 
 public class CreateProjectPage extends BasePage {
@@ -36,26 +38,26 @@ public class CreateProjectPage extends BasePage {
     }
 
     public Button createProjectButton() {
-        return new Button(browserService.getWait().presenceOfElementLocated(createProjectButtonBy));
+        return new Button(browserService.getDriver(), createProjectButtonBy);
     }
 
-    public UIElement getProjectNameInputBy() {
-        return browserService.getWait().presenceOfElementLocated(projectNameBy);
+    public WebElement getProjectNameInputBy() {
+        return browserService.getWait().waitForVisibility(projectNameBy);
     }
 
-    public UIElement getProjectCodeInputBy() {
-        return browserService.getWait().presenceOfElementLocated(projectCodeBy);
+    public WebElement getProjectCodeInputBy() {
+        return browserService.getWait().waitForVisibility(projectCodeBy);
     }
 
-    public UIElement getDescriptionInputBy() {
-        return browserService.getWait().presenceOfElementLocated(descriptionBy);
+    public WebElement getDescriptionInputBy() {
+        return browserService.getWait().waitForVisibility(descriptionBy);
     }
 
-    public UIElement getPrivateAccessTypeInput() {
-        return browserService.getWait().presenceOfElementLocated(privateAccessTypeBy);
+    public RadioButton getPrivateAccessTypeInput() {
+        return new RadioButton(browserService.getDriver(), privateAccessTypeBy);
     }
 
-    public UIElement getPublicAccessTypeInput() {
-        return browserService.getWait().presenceOfElementLocated(publicAccessTypeBy);
+    public WebElement getPublicAccessTypeInput() {
+        return browserService.getWait().waitForVisibility(publicAccessTypeBy);
     }
 }

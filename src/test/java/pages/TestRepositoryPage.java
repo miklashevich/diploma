@@ -4,6 +4,7 @@ import baseEntities.BasePage;
 import core.BrowserService;
 import core.ReadProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import wrappers.Button;
 import wrappers.UIElement;
@@ -33,15 +34,15 @@ public class TestRepositoryPage extends BasePage {
         }
     }
 
-    public Button createNewTestCaseButton() {
-        return new Button(browserService.getWait().presenceOfElementLocated(createNewTestCaseButtonBy));
+    public Button getCreateNewTestCaseButton() {
+        return new Button(browserService.getDriver(), createNewTestCaseButtonBy);
     }
 
-    public UIElement getTestRepositoryTitle() {
-        return browserService.getWait().presenceOfElementLocated(testRepositoryTitleBy);
+    public WebElement getTestRepositoryTitle() {
+        return browserService.getWait().waitForVisibility(testRepositoryTitleBy);
     }
 
     public WebElement getTestRepositoryName() {
-        return browserService.getDriver().findElement(testRepositoryNameBy);
+        return browserService.getWait().waitForVisibility(testRepositoryNameBy);
     }
 }

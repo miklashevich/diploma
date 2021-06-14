@@ -30,6 +30,6 @@ public class ProjectsPage extends BasePage {
     }
 
     public Button getCreateNewProjectButton() {
-        return new Button(browserService.getWait().presenceOfElementLocated(createNewProjectButtonBy));
+        return new Button(browserService.getDriver(), createNewProjectButtonBy);
     }
 }
