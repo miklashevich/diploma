@@ -6,10 +6,7 @@ import models.project.Project;
 import models.testcase.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.CreateProjectPage;
-import pages.ProjectsPage;
-import pages.TestRepositoryOfPrivateProjectPage;
-import pages.TestRepositoryOfPublicProjectPage;
+import pages.*;
 import steps.LoginSteps;
 import steps.ProjectsSteps;
 import steps.TestCaseSteps;
@@ -79,4 +76,16 @@ public class SmokeTest extends BaseTest {
                 testCase.getTitle());
     }
 
+    @Test(description = "Login with incorrect credential", dataProvider = "use incorrect credential", dataProviderClass = StaticProvider.class)
+    public void loginWithIncorrectCredentialTest(String email, String password) {
+
+        LoginSteps loginSteps = new LoginSteps(browserService);
+        loginSteps
+                .openLoginPage()
+                .loginWithIncorrectCredentials(email, password);
+
+        LoginPage loginPage = new LoginPage(browserService, false);
+
+        Assert.assertEquals(loginPage.getErrorMessage().getText(), "These credentials do not match our records.");
+    }
 }
