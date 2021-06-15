@@ -24,8 +24,10 @@ public class projectsTest extends BaseApiTest {
     @Test
     public void getAllProjectsTest() {
 
-        String response = projectHelper.getAllProjects();
+        int response = projectHelper.getAllProjects();
         logger.info(response);
+
+        Assert.assertEquals(response, HttpStatus.SC_OK);
     }
 
     @Test
@@ -58,23 +60,21 @@ public class projectsTest extends BaseApiTest {
     }
 
     @Test
-    public void getNonExistingProjectTest()  {
+    public void getNonExistingProjectTest() {
 
-        String response = projectHelper.getNonExistingProject("rtt");
+        final String nonExistingProjectId = Integer.toString(Integer.MIN_VALUE);
+
+        String response = projectHelper.getNonExistingProject(nonExistingProjectId);
         Assert.assertEquals(response, "Project is not found.");
-    }
-
-    @Test
-    public void deleteTestCaseTest() {
-
-        int response = projectHelper.deleteOneTestCase("TP", "9");
-        Assert.assertEquals(response, HttpStatus.SC_OK);
     }
 
     @Test
     public void deleteNonExistingTestCaseTest() {
 
-        String response = projectHelper.deleteNonExistingTestCase("TP", Integer.toString(Integer.MIN_VALUE));
+        final String projectId = "TP";
+        final String nonExistingTestCaseId = Integer.toString(Integer.MIN_VALUE);
+
+        String response = projectHelper.deleteNonExistingTestCase(projectId, nonExistingTestCaseId);
         Assert.assertEquals(response, "Test case not found");
     }
 }

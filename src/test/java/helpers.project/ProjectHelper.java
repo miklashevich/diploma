@@ -20,15 +20,15 @@ public class ProjectHelper {
 
     }
 
-    public String getAllProjects() {
+    public int getAllProjects() {
+
         return given()
                 .when()
                 .get("/v1/project")
-                .body()
-                .asString();
+                .getStatusCode();
     }
 
-    public GetProjectResponse createNewProject(File file) throws IOException {
+    public GetProjectResponse createNewProject(File file) {
         String newProjectCreated = given()
                 .contentType(ContentType.JSON)
                 .body(file)
