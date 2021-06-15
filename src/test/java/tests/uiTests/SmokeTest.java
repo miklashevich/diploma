@@ -34,7 +34,7 @@ public class SmokeTest extends BaseTest {
         Assert.assertEquals(testRepositoryOfPrivateProjectPage.getTestRepositoryName().getText().length(), PROJECT_NAME_LENGTH);
     }
 
-    @Test(description = "Create new project name length more than permitted ", dataProvider ="Create project with the name more than 255", dataProviderClass = StaticProvider.class)
+    @Test(description = "Create new project with name length more than permitted ", dataProvider ="Create project with the name more than 255", dataProviderClass = StaticProvider.class)
     public void createProjectTestLengthNameMorePermitted(String projectName, Project project) {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -49,8 +49,11 @@ public class SmokeTest extends BaseTest {
         ProjectsSteps projectsSteps = new ProjectsSteps(browserService);
         CreateProjectPage createProjectPage = projectsSteps.addProjectNoPermittedLength(project);
 
-
-        Assert.assertEquals(createProjectPage.getErrorMessage().getText(), "The title may not be greater than 255 characters.");
+        Assert.assertEquals(
+                createProjectPage
+                        .getErrorMessage()
+                        .getText(),
+                "The title may not be greater than 255 characters.");
     }
 
     @Test(description = "Create new Test Case", dataProvider = "Create Test Case with the help of Builder", dataProviderClass = StaticProvider.class)
@@ -84,8 +87,9 @@ public class SmokeTest extends BaseTest {
                 .openLoginPage()
                 .loginWithIncorrectCredentials(email, password);
 
-        LoginPage loginPage = new LoginPage(browserService, false);
-
-        Assert.assertEquals(loginPage.getErrorMessage().getText(), "These credentials do not match our records.");
+        Assert.assertEquals(new LoginPage(browserService, false)
+                .getErrorMessage()
+                .getText(),
+                "These credentials do not match our records.");
     }
 }

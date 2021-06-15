@@ -13,10 +13,7 @@ public abstract class HeaderPage extends BasePage {
         super(browserService, openPageByUrl);
     }
 
-
     public WebElement getProjects() {
         return browserService.getDriver().findElement(projectsBy);
     }
-
-
 }
