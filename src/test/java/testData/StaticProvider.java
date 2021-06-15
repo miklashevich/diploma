@@ -58,4 +58,10 @@ public class StaticProvider {
         };
     }
 
+    @DataProvider(name = "use incorrect credential")
+    public Object[][] createIncorrectCredential() {
+        return new Object[][]{
+                {"email@email.re", "11111111"}
+        };
+    }
 }

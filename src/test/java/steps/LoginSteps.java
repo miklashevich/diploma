@@ -18,8 +18,12 @@ public class LoginSteps extends BaseStep {
         return this;
     }
 
-    public LoginSteps loginWithIncorrectCredentials() {
-        return this;
+    public LoginPage loginWithIncorrectCredentials(String email, String password) {
+        loginPage.getEmailInput().sendKeys(email);
+        loginPage.getPasswordInput().sendKeys(password);
+        loginPage.getLoginButton().click();
+
+        return new LoginPage(browserService, false);
     }
 
     public ProjectsSteps loginWithCorrectCredentials() {
