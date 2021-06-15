@@ -6,6 +6,7 @@ import models.project.Project;
 import models.testcase.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.CreateProjectPage;
 import pages.ProjectsPage;
 import pages.TestRepositoryOfPrivateProjectPage;
 import pages.TestRepositoryOfPublicProjectPage;
@@ -36,6 +37,25 @@ public class SmokeTest extends BaseTest {
         Assert.assertEquals(testRepositoryOfPrivateProjectPage.getTestRepositoryName().getText().length(), PROJECT_NAME_LENGTH);
     }
 
+    @Test(description = "Create new project name length more than permitted ", dataProvider ="Create project with the name more than 255", dataProviderClass = StaticProvider.class)
+    public void createProjectTestLengthNameMorePermitted(String projectName, Project project) {
+
+        LoginSteps loginSteps = new LoginSteps(browserService);
+        loginSteps
+                .openLoginPage()
+                .loginWithCorrectCredentials()
+                .openProjectsPage(false);
+
+        ProjectsPage projectsPage = new ProjectsPage(browserService, false);
+        projectsPage.getCreateNewProjectButton().click();
+
+        ProjectsSteps projectsSteps = new ProjectsSteps(browserService);
+        CreateProjectPage createProjectPage = projectsSteps.addProjectNoPermittedLength(project);
+
+
+        Assert.assertEquals(createProjectPage.getErrorMessage().getText(), "The title may not be greater than 255 characters.");
+    }
+
     @Test(description = "Create new Test Case", dataProvider = "Create Test Case with the help of Builder", dataProviderClass = StaticProvider.class)
     public void createTestCaseCreatingEntityTest(String projectName, Project project, TestCase testCase) {
 
@@ -58,4 +78,5 @@ public class SmokeTest extends BaseTest {
                         .getText(),
                 testCase.getTitle());
     }
+
 }

@@ -11,7 +11,7 @@ import wrappers.UIElement;
 
 
 public class TestRepositoryOfPrivateProjectPage extends BasePage {
-    //private static final String ENDPOINT = "";
+
     private static final By createNewTestCaseButtonBy = By.xpath("//a[contains(text(),'Create new case')]");
     private static final By testRepositoryTitleBy = By.xpath("//h1[contains(text(),'Test repository')]");
     private static final By testRepositoryNameBy = By.xpath("//p[@class = 'header']");

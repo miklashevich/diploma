@@ -42,4 +42,26 @@ public class ProjectsSteps extends BaseStep {
 
         return new TestRepositoryOfPrivateProjectPage(browserService, false);
     }
+
+    @Step("Create New Project with the name length more than 255 symbols: 'project'")
+    public CreateProjectPage addProjectNoPermittedLength (Project project) {
+        CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
+
+        createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
+        createProjectPage.getProjectCodeInputBy().sendKeys(project.getCode());
+        createProjectPage.getDescriptionInputBy().sendKeys(project.getDescription());
+        switch (project.getAccess()) {
+            case ALL:
+                createProjectPage.getPublicAccessTypeInput().click();
+                break;
+            case GROUP:
+                createProjectPage.getPrivateAccessTypeInput().click();
+                break;
+            default:
+                break;
+        }
+        createProjectPage.createProjectButton().click();
+
+        return new CreateProjectPage(browserService, false);
+    }
 }

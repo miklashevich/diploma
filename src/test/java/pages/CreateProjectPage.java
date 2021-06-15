@@ -17,6 +17,7 @@ public class CreateProjectPage extends BasePage {
     private static final By descriptionBy = By.id("inputDescription");
     private static final By privateAccessTypeBy = By.id("private-access-type");
     private static final By publicAccessTypeBy = By.id("public-access-type");
+    private static final By errorMessageBy = By.xpath("//div[contains(text(),'The title may not be greater than 255 characters.')]");
 
     public CreateProjectPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -58,5 +59,10 @@ public class CreateProjectPage extends BasePage {
 
     public WebElement getPublicAccessTypeInput() {
         return browserService.getWait().waitForVisibility(publicAccessTypeBy);
+
     }
-}
+        public WebElement getErrorMessage () {
+            return browserService.getWait().waitForVisibility(errorMessageBy);
+        }
+    }
+

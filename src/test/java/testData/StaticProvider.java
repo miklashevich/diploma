@@ -42,4 +42,20 @@ public class StaticProvider {
                 }
         };
     }
+
+    @DataProvider(name = "Create project with the name more than 255")
+    public Object[][] createProjectLengthNameMorePermitted() {
+        RandomStringGenerator randomProjectName = new RandomStringGenerator();
+        final int randomStringLength = 256;
+        return new Object[][]{
+                {"Project1", Project.builder()
+                        .title(randomProjectName.randomString(randomStringLength))
+                        .code("PB")
+                        .description("ProjectBuilder Test Description")
+                        .access(AccessType.ALL)
+                        .build()
+                }
+        };
+    }
+
 }
