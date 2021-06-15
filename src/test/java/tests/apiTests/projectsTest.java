@@ -33,7 +33,7 @@ public class projectsTest extends BaseApiTest {
     @Test
     public void getProjectTest() throws IOException {
 
-        Reader reader = Files.newBufferedReader(Paths.get("src/test/java/testData/expectedProject.json"));
+        Reader reader = Files.newBufferedReader(Paths.get("src","test","java","testData","expectedProject.json"));
 
         GetProjectResponse expectedProject = ObjectUtil.getObjectFromJson(reader, GetProjectResponse.class);
         GetProjectResponse actualProject = projectHelper.getProject("TP");
@@ -47,8 +47,8 @@ public class projectsTest extends BaseApiTest {
     @Test
     public void createNewProjectTest() throws IOException {
 
-        Reader reader = Files.newBufferedReader(Paths.get("src/test/java/testData/newProjectData.json"));
-        File jsonDataInFile = new File("src/test/java/testData/newProjectData.json");
+        Reader reader = Files.newBufferedReader(Paths.get("src","test","java","testData","newProjectData.json"));
+        File jsonDataInFile = new File(String.valueOf(Paths.get("src","test","java","testData","newProjectData.json")));
 
         Project newCreatedProjectModel = ObjectUtil.getObjectFromJson(reader, Project.class);
         GetProjectResponse actualProject = projectHelper.createNewProject(jsonDataInFile);

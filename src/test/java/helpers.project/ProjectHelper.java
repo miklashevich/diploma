@@ -8,7 +8,6 @@ import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
 

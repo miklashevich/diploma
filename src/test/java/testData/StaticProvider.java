@@ -23,20 +23,32 @@ public class StaticProvider {
         };
     }
 
-    @DataProvider(name = "Create Test Case with the help of Builder")
+    @DataProvider(name = "Create a Test Case")
     public Object[][] createTestCase() {
-        RandomStringGenerator randomProjectName = new RandomStringGenerator();
-        final int randomStringLength = 255;
         return new Object[][]{
                 {
-                        "TestCase1",
-
                         Project.builder()
                                 .title("Test Project")
                                 .build(),
 
                         TestCase.builder()
-                                .title("TestCase123")
+                                .title("TestCase For Test")
+                                .severity(SeverityAttribute.CRITICAL)
+                                .build()
+                }
+        };
+    }
+
+    @DataProvider(name = "Delete a Test Case")
+    public Object[][] deleteTestCase() {
+        return new Object[][]{
+                {
+                        Project.builder()
+                                .title("Test Project")
+                                .build(),
+
+                        TestCase.builder()
+                                .title("TestCase For Test")
                                 .severity(SeverityAttribute.CRITICAL)
                                 .build()
                 }
