@@ -6,14 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import utils.Wait;
+import utils.Waits;
 
 @Slf4j
 public class BrowserService {
 
     private WebDriver driver;
     private DriverManagerType driverManagerType;
-    private Wait wait;
+    private Waits waits;
 
     public BrowserService() {
         switch (ReadProperties.getBrowser().toLowerCase()) {
@@ -34,14 +34,14 @@ public class BrowserService {
                 break;
         }
 
-        this.wait = new Wait(this);
+        this.waits = new Waits(driver);
     }
 
     public WebDriver getDriver() {
         return driver;
     }
 
-    public Wait getWait() {
-        return wait;
+    public Waits getWait() {
+        return waits;
     }
 }

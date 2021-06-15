@@ -3,36 +3,45 @@ package wrappers;
 import core.BrowserService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import utils.Waits;
 
 import java.util.List;
 
 public class UIElement implements WebElement {
-    private WebElement webElement;
-    private Actions actions;
-    private WebDriver webDriver;
-    private JavascriptExecutor jsExecutor;
 
-    public UIElement(BrowserService browserService, By by) {
-        this.webDriver = browserService.getDriver();
-        this.webElement = webDriver.findElement(by);
-        this.actions = new Actions(webDriver);
+    private final WebDriver webDriver;
+    private By by;
+    private final WebElement webElement;
+    private Actions action;
+    private JavascriptExecutor jsExecutor;
+    private Waits waits;
+
+    public UIElement(WebDriver webDriver, By by) {
+        this.webDriver = webDriver;
+        this.action = new Actions(webDriver);
         this.jsExecutor = (JavascriptExecutor) webDriver;
+        this.waits = new Waits(webDriver);
+        this.by = by;
+        webElement = webDriver.findElement(by);
+
     }
 
-    public UIElement(BrowserService browserService, WebElement webElement) {
-        this.webDriver = browserService.getDriver();
+    public UIElement(WebDriver webDriver, WebElement webElement) {
+        this.webDriver = webDriver;
+        this.action = new Actions(webDriver);
+        this.jsExecutor = (JavascriptExecutor) webDriver;
+        this.waits = new Waits(webDriver);
         this.webElement = webElement;
-        this.actions = new Actions(webDriver);
     }
 
     @Override
     public void click() {
-        try {
+        try{
             webElement.click();
         } catch (Exception ex) {
             try {
-                actions
-                        .moveToElement(this.webElement)
+                action
+                        .moveToElement(webElement)
                         .click()
                         .build()
                         .perform();
@@ -40,6 +49,7 @@ public class UIElement implements WebElement {
                 jsExecutor.executeScript("arguments[0].click();", webElement);
             }
         }
+
     }
 
     @Override
@@ -49,37 +59,37 @@ public class UIElement implements WebElement {
 
     @Override
     public void sendKeys(CharSequence... keysToSend) {
-        webElement.sendKeys(keysToSend);
+        webElement.sendKeys();
     }
 
     @Override
     public void clear() {
-
+        webElement.clear();
     }
 
     @Override
     public String getTagName() {
-        return null;
+        return webElement.getTagName();
     }
 
     @Override
     public String getAttribute(String name) {
-        return null;
+        return webElement.getAttribute(name);
     }
 
     @Override
     public boolean isSelected() {
-        return false;
+        return webElement.isSelected();
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return webElement.isEnabled();
     }
 
     @Override
     public String getText() {
-        return null;
+        return webElement.getText();
     }
 
     @Override
@@ -94,37 +104,53 @@ public class UIElement implements WebElement {
 
     @Override
     public boolean isDisplayed() {
-        return webElement.isDisplayed();
+        return waits.waitForVisibility(webElement).isDisplayed();
     }
 
     @Override
     public Point getLocation() {
-        return null;
+        return webElement.getLocation();
     }
 
     @Override
     public Dimension getSize() {
-        return null;
+        return webElement.getSize();
     }
 
     @Override
     public Rectangle getRect() {
-        return null;
+        return webElement.getRect();
     }
 
     @Override
     public String getCssValue(String propertyName) {
-        return null;
+        return webElement.getCssValue(propertyName);
     }
 
     @Override
     public <X> X getScreenshotAs(OutputType<X> target) throws WebDriverException {
-        return null;
+        return webElement.getScreenshotAs(target);
     }
 
-    public UIElement getParent(BrowserService browserService) {
+    public void hover() {
+        action
+                .moveToElement(webElement)
+                .build()
+                .perform();
+    }
+
+    public void dragNDrop(UIElement target) {
+        action
+                .dragAndDrop(webElement, target.webElement)
+                .build()
+                .perform();
+    }
+
+    public UIElement getParent() {
         WebElement parent = (WebElement) ((JavascriptExecutor) webDriver).executeScript(
                 "return arguments[0].parentNode;", webElement);
-        return new UIElement(browserService, parent);
+        return new UIElement(webDriver, parent);
     }
+
+
 }

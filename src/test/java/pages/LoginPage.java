@@ -15,6 +15,7 @@ public class LoginPage extends BasePage {
     private static final By loginButtonBy = By.id("btnLogin");
     private static final By emailInputBy = By.id("inputEmail");
     private static final By passwordInputBy = By.id("inputPassword");
+    private static final By errorMessageBy = By.xpath("//div[contains(text(),'These credentials do not match our records.')]");
 
     public LoginPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -34,15 +35,19 @@ public class LoginPage extends BasePage {
         }
     }
 
-    public UIElement getEmailInput() {
-        return browserService.getWait().presenceOfElementLocated(emailInputBy);
+    public WebElement getEmailInput() {
+        return browserService.getWait().waitForVisibility(emailInputBy);
     }
 
-    public UIElement getPasswordInput() {
-        return browserService.getWait().presenceOfElementLocated(passwordInputBy);
+    public WebElement getPasswordInput() {
+        return browserService.getWait().waitForVisibility(passwordInputBy);
     }
 
     public Button getLoginButton() {
-        return new Button(browserService.getWait().presenceOfElementLocated(loginButtonBy));
+        return new Button(browserService.getDriver(), loginButtonBy);
+    }
+
+    public WebElement getErrorMessage() {
+        return browserService.getWait().waitForVisibility(errorMessageBy);
     }
 }

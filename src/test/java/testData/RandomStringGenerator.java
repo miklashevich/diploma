@@ -2,7 +2,7 @@ package testData;
 
 import java.security.SecureRandom;
 
-public class RandomString {
+public class RandomStringGenerator {
 
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
