@@ -5,8 +5,8 @@ jobs:
   build:
     docker:
       - image: 'circleci/openjdk:latest-browsers'
-    parallelism: 2
-    working_directory: ~/repo
+    parallelism: 1
+#    working_directory: ~/repo
     environment:
     # get from git and get maven dependencies
     steps:
