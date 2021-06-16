@@ -12,6 +12,8 @@ public class ProjectsPage extends BasePage {
     private static final String ENDPOINT = "/projects";
     private static final By createNewProjectButtonBy = By.id("createButton");
     private static final String projectNameTitleBy = "//a[. = 'remove']";
+    private static final By menuButtonBy = By.id("user-menu");
+    private static final By profileBy = By.cssSelector("a[href^='https://app.qase.io/user/profile']");
 
     public ProjectsPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -37,5 +39,13 @@ public class ProjectsPage extends BasePage {
 
     public WebElement getProjectNameTitle(String projectName) {
         return browserService.getWait().waitForVisibility(By.xpath(projectNameTitleBy.replace("remove", projectName)));
+    }
+
+    public Button getMenuButton() {
+        return new Button(browserService.getDriver(), menuButtonBy);
+    }
+
+    public WebElement getProfileBy() {
+        return browserService.getWait().waitForVisibility(profileBy);
     }
 }

@@ -8,12 +8,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 import steps.LoginSteps;
+import steps.ProfileSteps;
 import steps.ProjectsSteps;
 import steps.TestCaseSteps;
 import testData.StaticProvider;
 
 @Slf4j
-public class SmokeTest extends BaseTest {
+public class SmokeUITests extends BaseTest {
 
     @Test(description = "Create new project",
             dataProvider = "Create project with the help of Builder",
@@ -129,5 +130,24 @@ public class SmokeTest extends BaseTest {
                         .getErrorMessage()
                         .getText(),
                 "These credentials do not match our records.");
+    }
+
+    @Test(description = "Attachment to profile")
+    public void uploadAttachmentTest1() {
+
+        LoginSteps loginSteps = new LoginSteps(browserService);
+        loginSteps
+                .openLoginPage()
+                .loginWithCorrectCredentials()
+                .openProjectsPage(false);
+
+        ProjectsPage projectsPage = new ProjectsPage(browserService, false);
+
+        projectsPage.getMenuButton().hover();
+        projectsPage.getMenuButton().click();
+        projectsPage.getProfileBy().click();
+
+        ProfileSteps profileSteps = new ProfileSteps(browserService);
+        profileSteps.uploadAttachment();
     }
 }
