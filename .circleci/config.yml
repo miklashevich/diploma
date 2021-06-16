@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: 'circleci/openjdk:latest-browsers'
     parallelism: 2
-    working_directory: .~/project
+    working_directory: ~/repo
     environment:
     # get from git and get maven dependencies
     steps:
@@ -31,6 +31,5 @@ jobs:
           when: always
       - store_test_results:
           path: target/surefire-reports/junitreports
-          when: always
       - store_artifacts:
           path: target/site/allure-maven-plugin/
