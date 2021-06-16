@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: 'circleci/openjdk:latest-browsers'
     parallelism: 1
-    working_directory: ./TAF
+    working_directory: ~/./
     environment:
     # get from git and get maven dependencies
     steps:
