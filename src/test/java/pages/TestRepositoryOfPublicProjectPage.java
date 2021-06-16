@@ -16,7 +16,7 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
     private static final String testCaseNameBy = "//*[@class = 'case-row-title' and contains(text(), 'remove')]";
     private static final By searchTestCaseInputBy = By.className("form-control");
     private static final By suiteCasesPreviewPanelBy = By.className("preview-header");
-    private static final By deleteTestCaseButtonBy = By.xpath("//*[contains(concat(' ', text(), ' '), ' Delete ')]");
+    private static final By deleteTestCaseButtonBy = By.xpath("//button[@title = 'Delete case']");
     private static final By confirmDeleteTestCaseButtonBy =
             By.xpath("//*[@class = 'modal-footer']//*[contains(text(), 'Delete')]");
     private static final By noResultsTextMessageBy = By.xpath("//*[@class = 'mt-3']//child :: span");

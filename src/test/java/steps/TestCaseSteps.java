@@ -59,12 +59,12 @@ public class TestCaseSteps extends BaseStep {
     public TestRepositoryOfPublicProjectSteps deleteTestCase(TestCase testCase) {
         TestRepositoryOfPublicProjectPage deleteTestCase = new TestRepositoryOfPublicProjectPage(browserService, false);
         deleteTestCase.getSearchTestCaseInput().sendKeys(testCase.getTitle());
+        deleteTestCase.getTestCaseName(testCase.getTitle()).click();
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        deleteTestCase.getTestCaseName(testCase.getTitle()).click();
         deleteTestCase.getDeleteTestCaseButton().click();
         deleteTestCase.getConfirmDeleteTestCaseButton().click();
         deleteTestCase.getNoResultsTextMessage().isDisplayed();
