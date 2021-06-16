@@ -3,10 +3,12 @@ package baseEntities;
 import core.BrowserService;
 import core.ReadProperties;
 import org.testng.annotations.*;
+import utils.TestListener;
 import utils.Waits;
 
 import java.util.concurrent.TimeUnit;
 
+@Listeners(TestListener.class)
 public class BaseTest {
 
     public BrowserService browserService;
