@@ -11,9 +11,9 @@ public class ProfilePage extends BasePage {
 
     private static final String ENDPOINT = "/user/profile";
     private static final By updateSettingsButtonBy = By.xpath("//button[contains(text(),'Update settings')]");
-    private static final By updateButtonBy = By.id("fileupload");
-    private final By pictureInputBy = By.xpath("//input[@id='fileupload']");
-
+    private static final By updateButtonBy = By.id("update-logo");
+    private static final By pictureInputBy = By.xpath("//input[@id='fileupload']");
+    private static final By profileImageBy = By.id("project-image");
 
     public ProfilePage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -37,6 +37,10 @@ public class ProfilePage extends BasePage {
         return new Button(browserService.getDriver(), updateButtonBy);
     }
 
+    public By getUpdateButtonBy() {
+        return updateButtonBy;
+    }
+
     public Button getUpdateSettingsButton() {
         return new Button(browserService.getDriver(), updateSettingsButtonBy);
     }
@@ -45,4 +49,7 @@ public class ProfilePage extends BasePage {
         return browserService.getDriver().findElement(pictureInputBy);
     }
 
+    public WebElement getProfileImage() {
+        return browserService.getWait().waitForVisibility(profileImageBy);
+    }
 }

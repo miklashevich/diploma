@@ -42,4 +42,8 @@ public class Waits {
     public Boolean waitForInVisibilityOfElement(By by) {
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
+
+    public WebElement waitForElementToBeClickable(By by) {
+        return wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
 }

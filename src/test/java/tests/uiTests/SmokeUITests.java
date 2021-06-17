@@ -19,7 +19,7 @@ public class SmokeUITests extends BaseTest {
     @Test(description = "Create new project",
             dataProvider = "Create project with the help of Builder",
             dataProviderClass = StaticProvider.class)
-    public void createProjectTestBoundaryValueAnalysis(String projectName, Project project) {
+    public void createProjectTestBoundaryValueAnalysis(Project project) {
         final int PROJECT_NAME_LENGTH = 255;
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -28,16 +28,14 @@ public class SmokeUITests extends BaseTest {
                 .loginWithCorrectCredentials()
                 .openProjectsPage(false);
 
-        ProjectsPage projectsPage = new ProjectsPage(browserService, false);
-        projectsPage
-                .getCreateNewProjectButton()
-                .click();
-
         ProjectsSteps projectsSteps = new ProjectsSteps(browserService);
-        TestRepositoryOfPrivateProjectPage testRepositoryOfPrivateProjectPage = projectsSteps.addProject(project);
+        projectsSteps
+                .openProjectsPage(false)
+                .addProject(project)
+                .openTestRepositoryOfPublicProject(false);
 
         Assert.assertEquals(
-                testRepositoryOfPrivateProjectPage
+                new TestRepositoryOfPublicProjectPage(browserService, false)
                         .getTestRepositoryName()
                         .getText()
                         .length(),
@@ -55,14 +53,14 @@ public class SmokeUITests extends BaseTest {
                 .loginWithCorrectCredentials()
                 .openProjectsPage(false);
 
-        ProjectsPage projectsPage = new ProjectsPage(browserService, false);
-        projectsPage.getCreateNewProjectButton().click();
-
         ProjectsSteps projectsSteps = new ProjectsSteps(browserService);
-        CreateProjectPage createProjectPage = projectsSteps.addProjectNoPermittedLength(project);
+        projectsSteps
+                .openProjectsPage(false)
+                .addProjectNoPermittedLength(project)
+                .openCreateProjectPage(false);
 
         Assert.assertEquals(
-                createProjectPage
+                new CreateProjectPage(browserService, false)
                         .getErrorMessage()
                         .getText(),
                 "The title may not be greater than 255 characters.");
@@ -141,13 +139,23 @@ public class SmokeUITests extends BaseTest {
                 .loginWithCorrectCredentials()
                 .openProjectsPage(false);
 
-        ProjectsPage projectsPage = new ProjectsPage(browserService, false);
-
-        projectsPage.getMenuButton().hover();
-        projectsPage.getMenuButton().click();
-        projectsPage.getProfileBy().click();
-
         ProfileSteps profileSteps = new ProfileSteps(browserService);
-        profileSteps.uploadAttachment();
+        profileSteps
+                .openProjectsPage(false)
+                .openProfilePage(false);
+
+        ProfilePage profileImage = new ProfilePage(browserService, false);
+        Assert.assertEquals(
+                profileImage.getProfileImage().getAttribute("src"),
+                profileImage.getProfileImage().getAttribute("data-src"));
+
+        profileSteps
+                .uploadAttachment()
+                .openProfilePage(false);
+
+        ProfilePage profileImageUpdate = new ProfilePage(browserService, false);
+        Assert.assertNotEquals(
+                profileImageUpdate.getProfileImage().getAttribute("src"),
+                profileImageUpdate.getProfileImage().getAttribute("data-src"));
     }
 }

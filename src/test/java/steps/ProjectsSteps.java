@@ -7,6 +7,7 @@ import models.project.Project;
 import pages.CreateProjectPage;
 import pages.ProjectsPage;
 import pages.TestRepositoryOfPrivateProjectPage;
+import pages.TestRepositoryOfPublicProjectPage;
 
 public class ProjectsSteps extends BaseStep {
 
@@ -21,10 +22,23 @@ public class ProjectsSteps extends BaseStep {
         return this;
     }
 
-    @Step("Create New Project with the name length equals to 255 symbols: 'project'")
-    public TestRepositoryOfPrivateProjectPage addProject(Project project) {
-        CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
+    public ProjectsSteps openCreateProjectPage(boolean openByUrl) {
+        new CreateProjectPage(browserService, openByUrl);
+        return this;
+    }
 
+    public ProjectsSteps openTestRepositoryOfPublicProject(boolean openByUrl) {
+
+        new TestRepositoryOfPublicProjectPage(browserService, false);
+        return this;
+    }
+
+    @Step("Create New Project with the name length equals to 255 symbols: 'project'")
+    public ProjectsSteps addProject(Project project) {
+
+        projectsPage.getCreateNewProjectButton().click();
+
+        CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
         createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
         createProjectPage.getProjectCodeInputBy().sendKeys(project.getCode());
         createProjectPage.getDescriptionInputBy().sendKeys(project.getDescription());
@@ -40,11 +54,14 @@ public class ProjectsSteps extends BaseStep {
         }
         createProjectPage.createProjectButton().click();
 
-        return new TestRepositoryOfPrivateProjectPage(browserService, false);
+        return this;
     }
 
     @Step("Create New Project with the name length more than 255 symbols: 'project'")
-    public CreateProjectPage addProjectNoPermittedLength (Project project) {
+    public ProjectsSteps addProjectNoPermittedLength (Project project) {
+
+        projectsPage.getCreateNewProjectButton().click();
+
         CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
 
         createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
@@ -62,6 +79,6 @@ public class ProjectsSteps extends BaseStep {
         }
         createProjectPage.createProjectButton().click();
 
-        return new CreateProjectPage(browserService, false);
+        return this;
     }
 }

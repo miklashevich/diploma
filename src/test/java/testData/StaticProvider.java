@@ -13,7 +13,7 @@ public class StaticProvider {
         RandomStringGenerator randomProjectName = new RandomStringGenerator();
         final int randomStringLength = 255;
         return new Object[][]{
-                {"Project1", Project.builder()
+                {Project.builder()
                         .title(randomProjectName.randomString(randomStringLength))
                         .code("PB")
                         .description("ProjectBuilder Description")
@@ -58,10 +58,10 @@ public class StaticProvider {
     @DataProvider(name = "Create project with the name more than 255")
     public Object[][] createProjectLengthNameMorePermitted() {
         RandomStringGenerator randomProjectName = new RandomStringGenerator();
-        final int randomStringLength = 256;
+        final int stringLength = 256;
         return new Object[][]{
                 {"Project1", Project.builder()
-                        .title(randomProjectName.randomString(randomStringLength))
+                        .title(randomProjectName.randomString(stringLength))
                         .code("PB")
                         .description("ProjectBuilder Test Description")
                         .access(AccessType.ALL)

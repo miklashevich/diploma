@@ -5,16 +5,11 @@ import core.BrowserService;
 import io.qameta.allure.Step;
 import models.project.Project;
 import models.testcase.TestCase;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import pages.CreateTestCasePage;
 import pages.ProjectsPage;
 import pages.TestRepositoryOfPublicProjectPage;
 import utils.Waits;
-
-import javax.sql.rowset.CachedRowSet;
-import java.security.Key;
-import java.util.concurrent.TimeUnit;
 
 public class TestCaseSteps extends BaseStep {
 
@@ -60,12 +55,11 @@ public class TestCaseSteps extends BaseStep {
         TestRepositoryOfPublicProjectPage deleteTestCase = new TestRepositoryOfPublicProjectPage(browserService, false);
         deleteTestCase.getSearchTestCaseInput().sendKeys(testCase.getTitle());
         deleteTestCase.getTestCaseName(testCase.getTitle()).click();
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waits.waitForVisibility(deleteTestCase.getDeleteTestCaseButtonBy());
+        waits.waitForElementToBeClickable(deleteTestCase.getDeleteTestCaseButtonBy());
         deleteTestCase.getDeleteTestCaseButton().click();
+        waits.waitForVisibility(deleteTestCase.getConfirmDeleteTestCaseButtonBy());
+        waits.waitForElementToBeClickable(deleteTestCase.getConfirmDeleteTestCaseButtonBy());
         deleteTestCase.getConfirmDeleteTestCaseButton().click();
         deleteTestCase.getNoResultsTextMessage().isDisplayed();
         waits.waitForInVisibilityOfElement(deleteTestCase.getConfirmDeleteTestCaseButtonBy());
