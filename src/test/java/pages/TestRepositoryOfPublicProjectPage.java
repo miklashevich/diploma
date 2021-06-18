@@ -24,6 +24,8 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
     private static final By confirmDeleteTestCaseButtonBy =
             By.xpath("//*[@class = 'modal-footer']//*[contains(text(), 'Delete')]");
     private static final By noResultsTextMessageBy = By.xpath("//*[@class = 'mt-3']//child :: span");
+    private static final By validationAlertMessage =
+            By.xpath("//*[@class = 'flash-message']//*[@class='alert-message']");
 
     public TestRepositoryOfPublicProjectPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -99,5 +101,9 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
 
     public List<WebElement> getAllTestCasesByName(String testCaseName) {
         return browserService.getDriver().findElements(By.xpath(testCaseNameBy.replace("remove", testCaseName)));
+    }
+
+    public WebElement getValidationAlertMessage() {
+        return browserService.getDriver().findElement(validationAlertMessage);
     }
 }

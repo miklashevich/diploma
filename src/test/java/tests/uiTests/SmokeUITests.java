@@ -84,11 +84,21 @@ public class SmokeUITests extends BaseTest {
                 .addTestCase(testCase)
                 .openTestRepositoryOfPublicProjectPage(false);
 
+        TestRepositoryOfPublicProjectPage testCaseCreatedValidation =
+                new TestRepositoryOfPublicProjectPage(browserService, false);
+
         Assert.assertEquals(
-                new TestRepositoryOfPublicProjectPage(browserService, false)
+                testCaseCreatedValidation
                         .getTestCaseName(testCase.getTitle())
                         .getText(),
                 testCase.getTitle());
+
+        Assert.assertEquals(
+                testCaseCreatedValidation
+                        .getValidationAlertMessage()
+                        .getText(),
+                "Test case was created successfully!"
+        );
     }
 
     @Test(description = "Delete an existing Test Case",
@@ -112,7 +122,7 @@ public class SmokeUITests extends BaseTest {
 
 
         Assert.assertFalse(new TestRepositoryOfPublicProjectPage(browserService, false)
-                        .getAllTestCasesByName(testCase.getTitle()).size() > 0);
+                .getAllTestCasesByName(testCase.getTitle()).size() > 0);
     }
 
     @Test(description = "Login with incorrect credential", dataProvider = "use incorrect credential", dataProviderClass = StaticProvider.class)
