@@ -110,10 +110,9 @@ public class SmokeUITests extends BaseTest {
                 .deleteTestCase(testCase)
                 .openTestRepositoryOfPublicProjectPage(false);
 
-        Assert.assertEquals(new TestRepositoryOfPublicProjectPage(browserService, false)
-                        .getNoResultsTextMessage()
-                        .getText(),
-                "Cases matching your criteria are not found.");
+
+        Assert.assertFalse(new TestRepositoryOfPublicProjectPage(browserService, false)
+                        .getAllTestCasesByName(testCase.getTitle()).size() > 0);
     }
 
     @Test(description = "Login with incorrect credential", dataProvider = "use incorrect credential", dataProviderClass = StaticProvider.class)
@@ -142,14 +141,7 @@ public class SmokeUITests extends BaseTest {
         ProfileSteps profileSteps = new ProfileSteps(browserService);
         profileSteps
                 .openProjectsPage(false)
-                .openProfilePage(false);
-
-        ProfilePage profileImage = new ProfilePage(browserService, false);
-        Assert.assertEquals(
-                profileImage.getProfileImage().getAttribute("src"),
-                profileImage.getProfileImage().getAttribute("data-src"));
-
-        profileSteps
+                .openProfilePage(false)
                 .uploadAttachment()
                 .openProfilePage(false);
 

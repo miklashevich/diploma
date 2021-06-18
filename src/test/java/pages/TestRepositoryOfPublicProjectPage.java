@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import wrappers.Button;
 import wrappers.UIElement;
 
+import java.util.List;
+
 
 public class TestRepositoryOfPublicProjectPage extends BasePage {
 
@@ -18,7 +20,7 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
     private static final String testCaseNameBy = "//*[@class = 'case-row-title' and contains(text(), 'remove')]";
     private static final By searchTestCaseInputBy = By.className("form-control");
     private static final By suiteCasesPreviewPanelBy = By.className("preview-header");
-    private static final By deleteTestCaseButtonBy = By.xpath("//button[@title = 'Delete case']");
+    private static final By deleteTestCaseButtonBy = By.xpath("//*[@class = 'preview']//*[contains(text(), 'Delete')]");
     private static final By confirmDeleteTestCaseButtonBy =
             By.xpath("//*[@class = 'modal-footer']//*[contains(text(), 'Delete')]");
     private static final By noResultsTextMessageBy = By.xpath("//*[@class = 'mt-3']//child :: span");
@@ -73,7 +75,7 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
         return browserService.getWait().waitForVisibility(searchTestCaseInputBy);
     }
 
-    public WebElement getSuiteCasesPreviewDivBy() {
+    public WebElement getSuiteCasesPreviewDiv() {
         return browserService.getWait().waitForVisibility(suiteCasesPreviewPanelBy);
     }
 
@@ -86,6 +88,16 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
     }
 
     public WebElement getTestCaseName(String testCaseName) {
-        return browserService.getWait().waitForVisibility(By.xpath(testCaseNameBy.replace("remove", testCaseName)));
+        return browserService
+                .getDriver()
+                .findElement(By.xpath(testCaseNameBy.replace("remove", testCaseName)));
+    }
+
+    public By getTestCaseNameBy(String testCaseName) {
+        return By.xpath(testCaseNameBy.replace("remove", testCaseName));
+    }
+
+    public List<WebElement> getAllTestCasesByName(String testCaseName) {
+        return browserService.getDriver().findElements(By.xpath(testCaseNameBy.replace("remove", testCaseName)));
     }
 }

@@ -4,14 +4,17 @@ import baseEntities.BaseStep;
 import core.BrowserService;
 import io.qameta.allure.Step;
 import models.project.Project;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.CreateProjectPage;
 import pages.ProjectsPage;
-import pages.TestRepositoryOfPrivateProjectPage;
 import pages.TestRepositoryOfPublicProjectPage;
 
 public class ProjectsSteps extends BaseStep {
 
     private ProjectsPage projectsPage = null;
+    private Actions actions = new Actions(browserService.getDriver());
 
     public ProjectsSteps(BrowserService browserService) {
         super(browserService);
@@ -40,6 +43,14 @@ public class ProjectsSteps extends BaseStep {
 
         CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
         createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
+        createProjectPage.getProjectCodeInputBy().click();
+            actions
+                    .keyDown(Keys.COMMAND)
+                    .sendKeys("A")
+                    .keyUp(Keys.COMMAND)
+                    .sendKeys(Keys.BACK_SPACE)
+                    .build()
+                    .perform();
         createProjectPage.getProjectCodeInputBy().sendKeys(project.getCode());
         createProjectPage.getDescriptionInputBy().sendKeys(project.getDescription());
         switch (project.getAccess()) {
@@ -58,7 +69,7 @@ public class ProjectsSteps extends BaseStep {
     }
 
     @Step("Create New Project with the name length more than 255 symbols: 'project'")
-    public ProjectsSteps addProjectNoPermittedLength (Project project) {
+    public ProjectsSteps addProjectNoPermittedLength(Project project) {
 
         projectsPage.getCreateNewProjectButton().click();
 

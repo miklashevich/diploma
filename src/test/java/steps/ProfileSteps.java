@@ -35,7 +35,6 @@ public class ProfileSteps extends BaseStep {
         String path = new File("src/test/java/testData/testCaseAttach.jpeg").getAbsolutePath();
 
         ProfilePage profilePage = new ProfilePage(browserService, false);
-        profilePage.getUpdateButton().click();
         profilePage.getPictureInput().sendKeys(path);
         waits.waitForElementToBeClickable(profilePage.getUpdateButtonBy());
 

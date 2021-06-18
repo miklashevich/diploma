@@ -2,7 +2,6 @@ package tests.apiTests;
 
 import baseEntities.BaseApiTest;
 import helpers.project.ProjectHelper;
-import models.project.GetProjectResponse;
 import models.project.Project;
 import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 
 public class projectsTest extends BaseApiTest {
 
@@ -30,33 +30,35 @@ public class projectsTest extends BaseApiTest {
         Assert.assertEquals(response, HttpStatus.SC_OK);
     }
 
-    @Test
+    @Test(dependsOnMethods = "createNewProjectTest", priority = 1)
     public void getProjectTest() throws IOException {
 
-        Reader reader = Files.newBufferedReader(Paths.get("src","test","java","testData","expectedProject.json"));
+        Reader reader = Files.newBufferedReader(Paths.get("src", "test", "java", "testData", "newProjectData.json"));
+        Project expectedProject = ObjectUtil.getObjectFromJson(reader, Project.class);
 
-        GetProjectResponse expectedProject = ObjectUtil.getObjectFromJson(reader, GetProjectResponse.class);
-        GetProjectResponse actualProject = projectHelper.getProject("TP");
+        Map<String, String> actualProject =
+                projectHelper
+                        .getProject(expectedProject.getCode())
+                        .jsonPath()
+                        .getMap("result");
 
-        System.out.println("Expected project code: " + expectedProject);
-        System.out.println("Actual project code: " + actualProject);
-
-        Assert.assertEquals(expectedProject, actualProject);
+        Assert.assertEquals(expectedProject.getCode(), actualProject.get("code"));
     }
 
     @Test
     public void createNewProjectTest() throws IOException {
 
-        Reader reader = Files.newBufferedReader(Paths.get("src","test","java","testData","newProjectData.json"));
-        File jsonDataInFile = new File(String.valueOf(Paths.get("src","test","java","testData","newProjectData.json")));
+        Reader reader = Files.newBufferedReader(Paths.get("src", "test", "java", "testData", "newProjectData.json"));
+        File jsonDataInFile = new File(String.valueOf(Paths.get("src", "test", "java", "testData", "newProjectData.json")));
 
-        Project newCreatedProjectModel = ObjectUtil.getObjectFromJson(reader, Project.class);
-        GetProjectResponse actualProject = projectHelper.createNewProject(jsonDataInFile);
+        Project actualProject = ObjectUtil.getObjectFromJson(reader, Project.class);
+        Map<String, String> newCreatedProjectModelCode =
+                projectHelper
+                        .createNewProject(jsonDataInFile)
+                        .jsonPath()
+                        .getMap("result");
 
-        System.out.println("actual project: " + actualProject);
-        System.out.println("expected project: " + newCreatedProjectModel);
-
-        Assert.assertEquals(newCreatedProjectModel.getCode(), actualProject.getResult().getCode());
+        Assert.assertEquals(newCreatedProjectModelCode.get("code"), actualProject.getCode());
     }
 
     @Test
@@ -76,5 +78,22 @@ public class projectsTest extends BaseApiTest {
 
         String response = projectHelper.deleteNonExistingTestCase(projectId, nonExistingTestCaseId);
         Assert.assertEquals(response, "Test case not found");
+    }
+
+    @Test(priority = 2)
+    public void deleteProjectTest() throws IOException {
+
+        Reader reader = Files.newBufferedReader(Paths.get("src", "test", "java", "testData", "newProjectData.json"));
+        Project expectedProjectModel = ObjectUtil.getObjectFromJson(reader, Project.class);
+
+        Map<String, String> expectedProjectMap =
+                projectHelper
+                        .getProject(expectedProjectModel.getCode())
+                        .jsonPath()
+                        .getMap("result");
+
+        String deleteProjectResponse = projectHelper.deleteProject(expectedProjectMap.get("code"));
+
+        Assert.assertEquals(deleteProjectResponse, "true");
     }
 }

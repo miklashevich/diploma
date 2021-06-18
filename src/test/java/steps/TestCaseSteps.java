@@ -54,12 +54,14 @@ public class TestCaseSteps extends BaseStep {
     public TestRepositoryOfPublicProjectSteps deleteTestCase(TestCase testCase) {
         TestRepositoryOfPublicProjectPage deleteTestCase = new TestRepositoryOfPublicProjectPage(browserService, false);
         deleteTestCase.getSearchTestCaseInput().sendKeys(testCase.getTitle());
+        waits.waitForElementToBeClickable(deleteTestCase.getTestCaseNameBy(testCase.getTitle()));
         deleteTestCase.getTestCaseName(testCase.getTitle()).click();
-        waits.waitForVisibility(deleteTestCase.getDeleteTestCaseButtonBy());
-        waits.waitForElementToBeClickable(deleteTestCase.getDeleteTestCaseButtonBy());
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         deleteTestCase.getDeleteTestCaseButton().click();
-        waits.waitForVisibility(deleteTestCase.getConfirmDeleteTestCaseButtonBy());
-        waits.waitForElementToBeClickable(deleteTestCase.getConfirmDeleteTestCaseButtonBy());
         deleteTestCase.getConfirmDeleteTestCaseButton().click();
         deleteTestCase.getNoResultsTextMessage().isDisplayed();
         waits.waitForInVisibilityOfElement(deleteTestCase.getConfirmDeleteTestCaseButtonBy());
