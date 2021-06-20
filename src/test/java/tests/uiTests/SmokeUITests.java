@@ -160,4 +160,27 @@ public class SmokeUITests extends BaseTest {
                 profileImageUpdate.getProfileImage().getAttribute("src"),
                 profileImageUpdate.getProfileImage().getAttribute("data-src"));
     }
+    @Test(description = "pop-up message test")
+    public void popUpTest() {
+
+        LoginSteps loginSteps = new LoginSteps(browserService);
+        loginSteps
+                .openLoginPage()
+                .loginWithCorrectCredentials()
+                .openProjectsPage(false);
+
+        ProfileSteps profileSteps = new ProfileSteps(browserService);
+        profileSteps
+                .openProjectsPage(false)
+                .openProfilePage(false)
+                .updateProfileTitle("Qa1")
+                .openProfilePage(false);
+
+        ProfilePage profilePage = new ProfilePage(browserService, false);
+
+        Assert.assertEquals(profilePage
+                .getAlertMessage()
+                .getText(),"Profile data was successfully updated.");
+
+    }
 }

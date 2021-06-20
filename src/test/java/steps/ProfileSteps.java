@@ -40,4 +40,12 @@ public class ProfileSteps extends BaseStep {
 
         return new ProfileSteps(browserService);
     }
+    public ProfileSteps updateProfileTitle(String positionTitle) {
+
+        ProfilePage profilePage = new ProfilePage(browserService, false);
+        profilePage.getPositionInputTitle().clear();
+        profilePage.getPositionInputTitle().sendKeys(positionTitle);
+        profilePage.getUpdateSettingsButton().click();
+        return new ProfileSteps(browserService);
+    }
 }

@@ -14,6 +14,9 @@ public class ProfilePage extends BasePage {
     private static final By updateButtonBy = By.id("update-logo");
     private static final By pictureInputBy = By.xpath("//input[@id='fileupload']");
     private static final By profileImageBy = By.id("project-image");
+    private static final By alertMessageBy = By.xpath("//*[text()=' Profile data was successfully updated.']");
+    private static final By positionInputTitleBy = By.id("inputRole");
+
 
     public ProfilePage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -51,5 +54,11 @@ public class ProfilePage extends BasePage {
 
     public WebElement getProfileImage() {
         return browserService.getWait().waitForVisibility(profileImageBy);
+    }
+    public WebElement getAlertMessage() {
+        return browserService.getWait().waitForVisibility(alertMessageBy);
+    }
+    public WebElement getPositionInputTitle() {
+        return browserService.getDriver().findElement(positionInputTitleBy);
     }
 }
