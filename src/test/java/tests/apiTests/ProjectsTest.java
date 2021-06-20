@@ -1,12 +1,15 @@
 package tests.apiTests;
 
 import baseEntities.BaseApiTest;
+import dao.ProjectDaoImplementation;
 import helpers.project.ProjectHelper;
+import lombok.extern.slf4j.Slf4j;
 import models.project.Project;
 import org.apache.http.HttpStatus;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import testData.StaticProvider;
 import utils.ObjectUtil;
 
 import java.io.File;
@@ -14,27 +17,32 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.Map;
 
-public class projectsTest extends BaseApiTest {
+@Slf4j
+public class ProjectsTest extends BaseApiTest {
 
-    static Logger logger = Logger.getLogger(projectsTest.class);
     ProjectHelper projectHelper = new ProjectHelper();
 
     @Test
     public void getAllProjectsTest() {
 
         int response = projectHelper.getAllProjects();
-        logger.info(response);
+        log.info(String.valueOf(response));
 
         Assert.assertEquals(response, HttpStatus.SC_OK);
     }
 
-    @Test(dependsOnMethods = "createNewProjectTest", priority = 1)
-    public void getProjectTest() throws IOException {
+    @Test(dependsOnMethods = "createNewProjectTest",
+            priority = 1,
+            dataProviderClass = StaticProvider.class,
+            dataProvider = "Create project for DB")
+    public void getProjectTest(Project project) throws IOException, SQLException {
 
         Reader reader = Files.newBufferedReader(Paths.get("src", "test", "java", "testData", "newProjectData.json"));
         Project expectedProject = ObjectUtil.getObjectFromJson(reader, Project.class);
+        ProjectDaoImplementation projectDao = new ProjectDaoImplementation();
 
         Map<String, String> actualProject =
                 projectHelper
@@ -42,7 +50,11 @@ public class projectsTest extends BaseApiTest {
                         .jsonPath()
                         .getMap("result");
 
-        Assert.assertEquals(expectedProject.getCode(), actualProject.get("code"));
+        projectDao.add(project);
+        String projectFromDBCode = projectDao.getProject(project.getCode()).getCode();
+
+        Assert.assertEquals(projectFromDBCode, actualProject.get("code"));
+
     }
 
     @Test

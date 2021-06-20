@@ -23,6 +23,20 @@ public class StaticProvider {
         };
     }
 
+    @DataProvider(name = "Create project for DB")
+    public Object[][] createProjectForDB() {
+        return new Object[][]{
+                {Project.builder()
+                        .title("DRProject")
+                        .code("DRP")
+                        .description("Project description test")
+                        .access(AccessType.GROUP)
+                        .groupAccess("404")
+                        .build()
+                }
+        };
+    }
+
     @DataProvider(name = "Create a Test Case")
     public Object[][] createTestCase() {
         return new Object[][]{

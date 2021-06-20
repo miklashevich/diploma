@@ -4,7 +4,7 @@
     <test name="Tests">
         <classes>
             <class name="tests.uiTests.SmokeUITests"></class>
-            <class name="tests.apiTests.projectsTest"></class>
+            <class name="tests.apiTests.ProjectsTest"></class>
         </classes>
     </test>
 </suite>
