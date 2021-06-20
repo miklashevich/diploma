@@ -1,6 +1,7 @@
 package tests.uiTests;
 
 import baseEntities.BaseTest;
+import core.Retry;
 import lombok.extern.slf4j.Slf4j;
 import models.project.Project;
 import models.testcase.TestCase;
@@ -107,6 +108,7 @@ public class SmokeUITests extends BaseTest {
             dependsOnMethods = "createTestCaseCreatingEntityTest")
     public void deleteTestCaseDeletingEntityTest(Project project, TestCase testCase) {
 
+
         LoginSteps loginSteps = new LoginSteps(browserService);
         loginSteps
                 .openLoginPage()
@@ -123,6 +125,7 @@ public class SmokeUITests extends BaseTest {
 
         Assert.assertFalse(new TestRepositoryOfPublicProjectPage(browserService, false)
                 .getAllTestCasesByName(testCase.getTitle()).size() > 0);
+
     }
 
     @Test(description = "Login with incorrect credential", dataProvider = "use incorrect credential", dataProviderClass = StaticProvider.class)
@@ -139,7 +142,7 @@ public class SmokeUITests extends BaseTest {
                 "These credentials do not match our records.");
     }
 
-    @Test(description = "Attachment to profile")
+    @Test(description = "Attachment to profile", retryAnalyzer = Retry.class)
     public void uploadAttachmentTest1() {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -159,6 +162,7 @@ public class SmokeUITests extends BaseTest {
         Assert.assertNotEquals(
                 profileImageUpdate.getProfileImage().getAttribute("src"),
                 profileImageUpdate.getProfileImage().getAttribute("data-src"));
+
     }
     @Test(description = "pop-up message test")
     public void popUpTest() {
