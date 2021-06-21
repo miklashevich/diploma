@@ -16,7 +16,7 @@ public class SmokeUITests extends BaseTest {
 
     @Test(description = "Create new project",
             dataProvider = "Create project with the help of Builder",
-            dataProviderClass = StaticProvider.class)
+            dataProviderClass = StaticProvider.class, retryAnalyzer = Retry.class)
     public void createProjectTestBoundaryValueAnalysis(Project project) {
         final int PROJECT_NAME_LENGTH = 255;
 
@@ -102,7 +102,7 @@ public class SmokeUITests extends BaseTest {
     @Test(description = "Delete an existing Test Case",
             dataProvider = "Delete a Test Case",
             dataProviderClass = StaticProvider.class,
-            dependsOnMethods = "createTestCaseCreatingEntityTest")
+            dependsOnMethods = "createTestCaseCreatingEntityTest", retryAnalyzer = Retry.class)
     public void deleteTestCaseDeletingEntityTest(Project project, TestCase testCase) {
 
 
@@ -125,7 +125,8 @@ public class SmokeUITests extends BaseTest {
 
     }
 
-    @Test(description = "Login with incorrect credential", dataProvider = "use incorrect credential", dataProviderClass = StaticProvider.class)
+    @Test(description = "Login with incorrect credential", dataProvider = "use incorrect credential",
+            dataProviderClass = StaticProvider.class)
     public void loginWithIncorrectCredentialTest(String email, String password) {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -203,7 +204,7 @@ public class SmokeUITests extends BaseTest {
 
         TestRepositoryOfPublicProjectSteps publicProjectSteps
                 = new TestRepositoryOfPublicProjectSteps(browserService);
-       publicProjectSteps.setSetting();
+        publicProjectSteps.setSetting();
 
         ProjectSettingPage projectSettingPage = new ProjectSettingPage(browserService, false);
 
