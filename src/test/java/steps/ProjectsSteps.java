@@ -8,6 +8,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.CreateProjectPage;
+import pages.ProjectSettingPage;
 import pages.ProjectsPage;
 import pages.TestRepositoryOfPublicProjectPage;
 
@@ -92,4 +93,6 @@ public class ProjectsSteps extends BaseStep {
 
         return this;
     }
+
+
 }

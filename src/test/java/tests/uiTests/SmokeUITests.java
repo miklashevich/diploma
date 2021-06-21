@@ -8,10 +8,7 @@ import models.testcase.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
-import steps.LoginSteps;
-import steps.ProfileSteps;
-import steps.ProjectsSteps;
-import steps.TestCaseSteps;
+import steps.*;
 import testData.StaticProvider;
 
 @Slf4j
@@ -185,6 +182,39 @@ public class SmokeUITests extends BaseTest {
         Assert.assertEquals(profilePage
                 .getAlertMessage()
                 .getText(),"Profile data was successfully updated.");
+
+    }
+    @Test(description = "bug reproduce",
+            dataProvider = "Create project with the help of Builder",
+            dataProviderClass = StaticProvider.class)
+    public void bugReproduceTest(Project project) {
+
+        LoginSteps loginSteps = new LoginSteps(browserService);
+        loginSteps
+                .openLoginPage()
+                .loginWithCorrectCredentials()
+                .openProjectsPage(false);
+
+        ProjectsSteps projectsSteps = new ProjectsSteps(browserService);
+        projectsSteps
+                .openProjectsPage(false)
+                .addProject(project)
+                .openTestRepositoryOfPublicProject(false);
+
+        TestRepositoryOfPublicProjectSteps publicProjectSteps
+                = new TestRepositoryOfPublicProjectSteps(browserService);
+       publicProjectSteps.setSetting();
+
+        ProjectSettingPage projectSettingPage = new ProjectSettingPage(browserService, false);
+
+        Assert.assertEquals(projectSettingPage
+                .getAlertMessage()
+                .getText(),"Project settings were successfully updated!");
+
+
+
+
+
 
     }
 }

@@ -26,6 +26,8 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
     private static final By noResultsTextMessageBy = By.xpath("//*[@class = 'mt-3']//child :: span");
     private static final By validationAlertMessage =
             By.xpath("//*[@class = 'flash-message']//*[@class='alert-message']");
+    private static final By settingsButtonBy = By.xpath("//span[contains(text(),'Settings')]");
+
 
     public TestRepositoryOfPublicProjectPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -105,5 +107,9 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
 
     public WebElement getValidationAlertMessage() {
         return browserService.getDriver().findElement(validationAlertMessage);
+    }
+
+    public Button getSettingsButton() {
+        return new Button(browserService.getDriver(), settingsButtonBy);
     }
 }
