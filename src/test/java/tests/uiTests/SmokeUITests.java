@@ -198,7 +198,7 @@ public class SmokeUITests extends BaseTest {
         ProjectsSteps projectsSteps = new ProjectsSteps(browserService);
         projectsSteps
                 .openProjectsPage(false)
-                .addProject(project)
+                .addProjectBugReproduce(project)
                 .openTestRepositoryOfPublicProject(false);
 
         TestRepositoryOfPublicProjectSteps publicProjectSteps
@@ -210,10 +210,6 @@ public class SmokeUITests extends BaseTest {
         Assert.assertEquals(projectSettingPage
                 .getAlertMessage()
                 .getText(),"Project settings were successfully updated!");
-
-
-
-
 
 
     }

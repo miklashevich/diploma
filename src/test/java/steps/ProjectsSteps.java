@@ -45,13 +45,13 @@ public class ProjectsSteps extends BaseStep {
         CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
         createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
         createProjectPage.getProjectCodeInputBy().click();
-            actions
-                    .keyDown(Keys.COMMAND)
-                    .sendKeys("A")
-                    .keyUp(Keys.COMMAND)
-                    .sendKeys(Keys.BACK_SPACE)
-                    .build()
-                    .perform();
+        actions
+                .keyDown(Keys.COMMAND)
+                .sendKeys("A")
+                .keyUp(Keys.COMMAND)
+                .sendKeys(Keys.BACK_SPACE)
+                .build()
+                .perform();
         createProjectPage.getProjectCodeInputBy().sendKeys(project.getCode());
         createProjectPage.getDescriptionInputBy().sendKeys(project.getDescription());
         switch (project.getAccess()) {
@@ -94,5 +94,29 @@ public class ProjectsSteps extends BaseStep {
         return this;
     }
 
+    public ProjectsSteps addProjectBugReproduce(Project project) {
 
+        projectsPage.getCreateNewProjectButton().click();
+
+        CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
+        createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
+        createProjectPage.getProjectCodeInputBy().click();
+
+        createProjectPage.getProjectCodeInputBy().sendKeys(project.getCode());
+        createProjectPage.getDescriptionInputBy().sendKeys(project.getDescription());
+        switch (project.getAccess()) {
+            case ALL:
+                createProjectPage.getPublicAccessTypeInput().click();
+                break;
+            case GROUP:
+                createProjectPage.getPrivateAccessTypeInput().click();
+                break;
+            default:
+                break;
+        }
+        createProjectPage.createProjectButton().click();
+
+        return this;
+
+    }
 }
