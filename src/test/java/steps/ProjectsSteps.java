@@ -4,6 +4,7 @@ import baseEntities.BaseStep;
 import core.BrowserService;
 import io.qameta.allure.Step;
 import models.project.Project;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import pages.CreateProjectPage;
 import pages.ProjectsPage;
@@ -41,6 +42,14 @@ public class ProjectsSteps extends BaseStep {
 
         CreateProjectPage createProjectPage = new CreateProjectPage(browserService, false);
         createProjectPage.getProjectNameInputBy().sendKeys(project.getTitle());
+        createProjectPage.getProjectCodeInputBy().click();
+        actions
+                .keyDown(Keys.CONTROL)
+                .sendKeys("A")
+                .keyUp(Keys.CONTROL)
+                .sendKeys(Keys.BACK_SPACE)
+                .build()
+                .perform();
         createProjectPage.getProjectCodeInputBy().sendKeys(project.getCode());
         createProjectPage.getDescriptionInputBy().sendKeys(project.getDescription());
         switch (project.getAccess()) {
