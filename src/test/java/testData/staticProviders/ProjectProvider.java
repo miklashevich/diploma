@@ -41,7 +41,7 @@ public class ProjectProvider {
         RandomStringGenerator randomProjectName = new RandomStringGenerator();
         final int stringLength = 256;
         return new Object[][]{
-                {"Project1", Project.builder()
+                {Project.builder()
                         .title(randomProjectName.randomString(stringLength))
                         .code("PB")
                         .description("ProjectBuilder Test Description")

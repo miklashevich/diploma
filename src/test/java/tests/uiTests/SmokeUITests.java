@@ -65,7 +65,7 @@ public class SmokeUITests extends BaseTest {
     @Test(description = "Create new project with name length more than permitted ",
             dataProvider = "Create project with the name more than 255",
             dataProviderClass = ProjectProvider.class)
-    public void createProjectTestLengthNameMorePermitted(String projectName, Project project) {
+    public void createProjectTestLengthNameMorePermitted(Project project) {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
         loginSteps
