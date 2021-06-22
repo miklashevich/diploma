@@ -41,7 +41,7 @@ public class TestRepositoryOfPublicProjectPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         try {
-            return browserService.getDriver().findElement(testRepositoryTitleBy).isDisplayed();
+            return browserService.getDriver().findElement(testRepositoryTitleBy).isEnabled();
         } catch (Exception ex) {
             return false;
         }

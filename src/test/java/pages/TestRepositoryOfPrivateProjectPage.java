@@ -28,7 +28,7 @@ public class TestRepositoryOfPrivateProjectPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         try {
-            return browserService.getDriver().findElement(createNewTestCaseButtonBy).isDisplayed();
+            return browserService.getDriver().findElement(createNewTestCaseButtonBy).isEnabled();
         } catch (Exception ex) {
             return false;
         }

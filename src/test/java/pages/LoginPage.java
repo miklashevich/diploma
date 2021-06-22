@@ -29,7 +29,7 @@ public class LoginPage extends BasePage {
     @Override
     protected boolean isPageOpened() {
         try {
-            return browserService.getDriver().findElement(loginButtonBy).isDisplayed();
+            return browserService.getDriver().findElement(loginButtonBy).isEnabled();
         } catch (Exception ex) {
             return false;
         }

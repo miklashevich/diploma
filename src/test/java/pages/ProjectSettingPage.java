@@ -25,7 +25,7 @@ public class ProjectSettingPage extends BasePage {
     @Override
     protected boolean isPageOpened() {
         try {
-            return browserService.getDriver().findElement(updateSettingButtonBy).isDisplayed();
+            return browserService.getDriver().findElement(updateSettingButtonBy).isEnabled();
         } catch (Exception ex) {
             return false;
         }

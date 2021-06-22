@@ -160,6 +160,7 @@ public class SmokeUITests extends BaseTest {
         Assert.assertFalse(
                 new TestRepositoryOfPublicProjectPage(browserService, false)
                 .getAllTestCasesByName(testCase.getTitle()).size() > 0);
+
     }
 
     @Feature("Feature3")

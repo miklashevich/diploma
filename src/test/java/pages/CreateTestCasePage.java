@@ -29,7 +29,7 @@ public class CreateTestCasePage extends BasePage {
     @Override
     protected boolean isPageOpened() {
         try {
-            return browserService.getDriver().findElement(saveNewTestCaseButtonBy).isDisplayed();
+            return browserService.getDriver().findElement(saveNewTestCaseButtonBy).isEnabled();
         } catch (Exception ex) {
             return false;
         }

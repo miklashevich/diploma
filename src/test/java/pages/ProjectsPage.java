@@ -28,7 +28,7 @@ public class ProjectsPage extends BasePage {
     @Override
     protected boolean isPageOpened() {
         try{
-            return browserService.getDriver().findElement(createNewProjectButtonBy).isDisplayed();
+            return browserService.getDriver().findElement(createNewProjectButtonBy).isEnabled();
         } catch (Exception ex) {
             return false;
         }

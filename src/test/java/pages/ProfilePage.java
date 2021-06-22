@@ -30,7 +30,7 @@ public class ProfilePage extends BasePage {
     @Override
     protected boolean isPageOpened() {
         try {
-            return browserService.getDriver().findElement(updateSettingsButtonBy).isDisplayed();
+            return browserService.getDriver().findElement(updateSettingsButtonBy).isEnabled();
         } catch (Exception ex) {
             return false;
         }
