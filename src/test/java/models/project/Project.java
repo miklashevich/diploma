@@ -19,7 +19,7 @@ public class Project {
 
     @NotNull
     @Expose
-//    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     int id;
     @NotNull
     @Expose

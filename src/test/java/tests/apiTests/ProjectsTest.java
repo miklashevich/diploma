@@ -3,6 +3,7 @@ package tests.apiTests;
 import baseEntities.BaseApiTest;
 import dao.ProjectDaoImplementation;
 import helpers.project.ProjectHelper;
+import io.qameta.allure.*;
 import lombok.extern.slf4j.Slf4j;
 import models.project.Project;
 import org.apache.http.HttpStatus;
@@ -24,6 +25,15 @@ public class ProjectsTest extends BaseApiTest {
 
     ProjectHelper projectHelper = new ProjectHelper();
 
+    @Feature("Feature1")
+    @Story("Story10")
+    @Flaky
+    @Owner("Dzmitry Rudak")
+    @TmsLink("16")
+    @Link(name = "Text Link",
+            url = "https://thumbs.dreamstime.com/z/funny-cartoon-bug-vector-illustration-cute-beetle-50577038.jpg")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.MINOR)
     @Test
     public void getAllProjectsTest() {
 
@@ -33,13 +43,21 @@ public class ProjectsTest extends BaseApiTest {
         Assert.assertEquals(response, HttpStatus.SC_OK);
     }
 
+    @Feature("Feature1")
+    @Story("Story10")
+    @Flaky
+    @Owner("Dzmitry Rudak")
+    @TmsLink("16")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.CRITICAL)
     @Test(dependsOnMethods = "createNewProjectTestFromFile",
             priority = 1,
             dataProviderClass = ProjectProvider.class,
             dataProvider = "Create project for DB")
     public void getProjectTest(Project project) throws IOException, SQLException {
 
-        Reader reader = Files.newBufferedReader(Paths.get("src", "test", "java", "testData", "newProjectData.json"));
+        Reader reader = Files.newBufferedReader(Paths
+                .get("src", "test", "java", "testData", "newProjectData.json"));
         Project expectedProject = ObjectUtil.getObjectFromJson(reader, Project.class);
         ProjectDaoImplementation projectDao = new ProjectDaoImplementation();
 
@@ -56,6 +74,10 @@ public class ProjectsTest extends BaseApiTest {
 
     }
 
+    @Feature("Feature1")
+    @Story("Story10")
+    @Owner("Dzmitry Rudak")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     public void createNewProjectTestFromFile() throws IOException {
 
@@ -72,6 +94,10 @@ public class ProjectsTest extends BaseApiTest {
         Assert.assertEquals(newCreatedProjectModelCode.get("code"), actualProject.getCode());
     }
 
+    @Feature("Feature1")
+    @Story("Story10")
+    @Owner("Dzmitry Rudak")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     public void getNonExistingProjectTest() {
 
@@ -81,6 +107,10 @@ public class ProjectsTest extends BaseApiTest {
         Assert.assertEquals(response, "Project is not found.");
     }
 
+    @Feature("Feature2")
+    @Story("Story10")
+    @Owner("Dzmitry Rudak")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     public void deleteNonExistingTestCaseTest() {
 
@@ -91,6 +121,10 @@ public class ProjectsTest extends BaseApiTest {
         Assert.assertEquals(response, "Test case not found");
     }
 
+    @Feature("Feature1")
+    @Story("Story10")
+    @Owner("Dzmitry Rudak")
+    @Severity(SeverityLevel.NORMAL)
     @Test(priority = 2)
     public void deleteProjectTest() throws IOException {
 
