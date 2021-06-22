@@ -25,8 +25,6 @@ public class BrowserService {
                 chromeOptions.addArguments("--disable-gpu");
                 chromeOptions.addArguments("--start-maximized");
                 chromeOptions.addArguments("--incognito");
-                chromeOptions.addArguments("--disable-popup-blocking");
-
 
                 driver = new ChromeDriver(chromeOptions);
                 break;
