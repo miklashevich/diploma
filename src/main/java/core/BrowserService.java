@@ -24,7 +24,7 @@ public class BrowserService {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--disable-gpu");
                 chromeOptions.addArguments("--start-maximized");
-                chromeOptions.addArguments("--incognito");
+                //chromeOptions.addArguments("--incognito");
 
                 driver = new ChromeDriver(chromeOptions);
                 break;
