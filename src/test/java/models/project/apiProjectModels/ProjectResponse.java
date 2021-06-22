@@ -1,4 +1,4 @@
-package models.project;
+package models.project.apiProjectModels;
 
 import com.google.gson.annotations.Expose;
 import com.sun.istack.NotNull;
@@ -9,17 +9,13 @@ import lombok.experimental.Accessors;
 @Data
 @ToString
 @Accessors(chain = true)
-public class Result {
+public class ProjectResponse {
 
     @NotNull
     @Expose
-    private String title;
+    private boolean status;
 
     @NotNull
     @Expose
-    private String code;
-
-    public String getCode() {
-        return code;
-    }
+    private Result result;
 }

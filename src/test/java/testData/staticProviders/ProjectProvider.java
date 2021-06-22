@@ -1,12 +1,11 @@
-package testData;
+package testData.staticProviders;
 
 import enums.AccessType;
-import enums.testCaseAttributes.SeverityAttribute;
 import models.project.Project;
-import models.testcase.TestCase;
 import org.testng.annotations.DataProvider;
+import testData.RandomStringGenerator;
 
-public class StaticProvider {
+public class ProjectProvider {
 
     @DataProvider(name = "Create project with the help of Builder")
     public Object[][] createProject() {
@@ -37,38 +36,6 @@ public class StaticProvider {
         };
     }
 
-    @DataProvider(name = "Create a Test Case")
-    public Object[][] createTestCase() {
-        return new Object[][]{
-                {
-                        Project.builder()
-                                .title("Test Project")
-                                .build(),
-
-                        TestCase.builder()
-                                .title("TestCase For Test")
-                                .severity(SeverityAttribute.CRITICAL)
-                                .build()
-                }
-        };
-    }
-
-    @DataProvider(name = "Delete a Test Case")
-    public Object[][] deleteTestCase() {
-        return new Object[][]{
-                {
-                        Project.builder()
-                                .title("Test Project")
-                                .build(),
-
-                        TestCase.builder()
-                                .title("TestCase For Test")
-                                .severity(SeverityAttribute.CRITICAL)
-                                .build()
-                }
-        };
-    }
-
     @DataProvider(name = "Create project with the name more than 255")
     public Object[][] createProjectLengthNameMorePermitted() {
         RandomStringGenerator randomProjectName = new RandomStringGenerator();
@@ -81,13 +48,6 @@ public class StaticProvider {
                         .access(AccessType.ALL)
                         .build()
                 }
-        };
-    }
-
-    @DataProvider(name = "use incorrect credential")
-    public Object[][] createIncorrectCredential() {
-        return new Object[][]{
-                {"email@email.re", "11111111"}
         };
     }
 }

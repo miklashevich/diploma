@@ -7,13 +7,10 @@ import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import models.project.GetProjectResponse;
-import models.project.Project;
 import org.apache.http.HttpStatus;
 //import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 

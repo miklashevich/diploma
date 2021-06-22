@@ -35,7 +35,7 @@ workflows:
   version: 2
   commit:
     jobs:
-      - ui-tests
+      - 404_team-tests
   periodical:
     triggers:
       - schedule:
@@ -45,4 +45,4 @@ workflows:
               only:
                 - master
     jobs:
-      - ui-tests
+      - 404_team-tests
