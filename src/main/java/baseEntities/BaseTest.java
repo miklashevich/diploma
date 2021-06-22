@@ -1,6 +1,5 @@
 package baseEntities;
 
-import com.google.common.collect.ImmutableMap;
 import core.BrowserService;
 import core.ReadProperties;
 import org.testng.annotations.*;
