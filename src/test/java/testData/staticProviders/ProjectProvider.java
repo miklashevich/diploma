@@ -1,19 +1,18 @@
-package testData;
+package testData.staticProviders;
 
 import enums.AccessType;
-import enums.testCaseAttributes.SeverityAttribute;
 import models.project.Project;
-import models.testcase.TestCase;
 import org.testng.annotations.DataProvider;
+import testData.RandomStringGenerator;
 
-public class StaticProvider {
+public class ProjectProvider {
 
     @DataProvider(name = "Create project with the help of Builder")
     public Object[][] createProject() {
         RandomStringGenerator randomProjectName = new RandomStringGenerator();
         final int randomStringLength = 255;
         return new Object[][]{
-                {"Project1", Project.builder()
+                {Project.builder()
                         .title(randomProjectName.randomString(randomStringLength))
                         .code("PB")
                         .description("ProjectBuilder Description")
@@ -23,22 +22,16 @@ public class StaticProvider {
         };
     }
 
-    @DataProvider(name = "Create Test Case with the help of Builder")
-    public Object[][] createTestCase() {
-        RandomStringGenerator randomProjectName = new RandomStringGenerator();
-        final int randomStringLength = 255;
+    @DataProvider(name = "Create project for DB")
+    public Object[][] createProjectForDB() {
         return new Object[][]{
-                {
-                        "TestCase1",
-
-                        Project.builder()
-                                .title("Test Project")
-                                .build(),
-
-                        TestCase.builder()
-                                .title("TestCase123")
-                                .severity(SeverityAttribute.CRITICAL)
-                                .build()
+                {Project.builder()
+                        .title("DRProject")
+                        .code("DRP")
+                        .description("Project description test")
+                        .access(AccessType.GROUP)
+                        .groupAccess("404")
+                        .build()
                 }
         };
     }
@@ -46,22 +39,15 @@ public class StaticProvider {
     @DataProvider(name = "Create project with the name more than 255")
     public Object[][] createProjectLengthNameMorePermitted() {
         RandomStringGenerator randomProjectName = new RandomStringGenerator();
-        final int randomStringLength = 256;
+        final int stringLength = 256;
         return new Object[][]{
-                {"Project1", Project.builder()
-                        .title(randomProjectName.randomString(randomStringLength))
+                {Project.builder()
+                        .title(randomProjectName.randomString(stringLength))
                         .code("PB")
                         .description("ProjectBuilder Test Description")
                         .access(AccessType.ALL)
                         .build()
                 }
-        };
-    }
-
-    @DataProvider(name = "use incorrect credential")
-    public Object[][] createIncorrectCredential() {
-        return new Object[][]{
-                {"email@email.re", "11111111"}
         };
     }
 }

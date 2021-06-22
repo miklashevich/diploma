@@ -12,6 +12,9 @@ public class ProjectsPage extends BasePage {
     private static final String ENDPOINT = "/projects";
     private static final By createNewProjectButtonBy = By.id("createButton");
     private static final String projectNameTitleBy = "//a[. = 'remove']";
+    private static final By menuButtonBy = By.id("user-menu");
+    private static final By profileButtonBy =
+            By.xpath("//*[@class = 'user-menu-section']/child :: *[contains(concat(' ', a, ' '), ' Profile ')]");
 
     public ProjectsPage(BrowserService browserService, boolean openPageByUrl) {
         super(browserService, openPageByUrl);
@@ -37,5 +40,13 @@ public class ProjectsPage extends BasePage {
 
     public WebElement getProjectNameTitle(String projectName) {
         return browserService.getWait().waitForVisibility(By.xpath(projectNameTitleBy.replace("remove", projectName)));
+    }
+
+    public Button getMenuButton() {
+        return new Button(browserService.getDriver(), menuButtonBy);
+    }
+
+    public Button getProfileButton() {
+        return new Button(browserService.getDriver(), profileButtonBy);
     }
 }

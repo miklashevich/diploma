@@ -1,23 +1,26 @@
 package baseEntities;
 
 import core.BrowserService;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import core.ReadProperties;
+import org.testng.annotations.*;
+import utils.TestListener;
 
 import java.util.concurrent.TimeUnit;
 
+@Listeners(TestListener.class)
 public class BaseTest {
 
     public BrowserService browserService;
+    protected ReadProperties readProperties;
 
-    @BeforeClass
-    public void setupClass() {
+    @BeforeMethod
+    public void setupMethod() {
         browserService = new BrowserService();
         browserService.getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
     }
 
-    @AfterClass
-    public void tearDownClass() {
+    @AfterMethod
+    public void tearDownMethod() {
         browserService.getDriver().quit();
     }
 }

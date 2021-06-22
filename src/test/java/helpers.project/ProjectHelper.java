@@ -2,50 +2,61 @@ package helpers.project;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import models.project.GetProjectResponse;
+import io.restassured.parsing.Parser;
+import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
 
+@Slf4j
 public class ProjectHelper {
-    static Logger logger = Logger.getLogger(ProjectHelper.class);
+//    static Logger logger = Logger.getLogger(ProjectHelper.class);
     private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
-    public ProjectHelper() {
+    public int getAllProjects() {
 
-    }
-
-    public String getAllProjects() {
         return given()
                 .when()
                 .get("/v1/project")
-                .body()
-                .asString();
+                .getStatusCode();
     }
 
-    public GetProjectResponse createNewProject(File file) throws IOException {
-        String newProjectCreated = given()
+    public Response createNewProject(File file) {
+        RestAssured.defaultParser = Parser.JSON;
+        return given()
                 .contentType(ContentType.JSON)
                 .body(file)
                 .post("/v1/project")
-                .body()
-                .asString();
-        return gson.fromJson(newProjectCreated, GetProjectResponse.class);
+                .then()
+                .contentType(ContentType.JSON)
+                .extract()
+                .response();
     }
 
-    public GetProjectResponse getProject(String projectCode) {
-        String body = given()
+    public Response getProject(String projectCode) {
+        return given()
                 .when()
                 .get("/v1/project/" + projectCode)
-                .body()
-                .asString();
+                .then()
+                .extract()
+                .response();
 
-        return gson.fromJson(body, GetProjectResponse.class);
+    }
+
+    public String deleteProject(String projectCode) {
+        return given()
+                .when()
+                .delete("/v1/project/" + projectCode)
+                .then()
+                .extract()
+                .jsonPath()
+                .get("status").toString();
     }
 
     public String getNonExistingProject(String projectCode) {
@@ -55,14 +66,6 @@ public class ProjectHelper {
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
                 .extract().jsonPath().get("errorMessage");
-    }
-
-    public int deleteOneTestCase(String projectCode, String id) {
-        return given()
-                .when()
-                .delete("/v1/case/" + projectCode + "/" + id)
-                .getStatusCode();
-
     }
 
     public String deleteNonExistingTestCase(String projectCode, String id) {
