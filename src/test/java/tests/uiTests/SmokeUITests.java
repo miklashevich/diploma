@@ -30,7 +30,8 @@ public class SmokeUITests extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Create new project",
             dataProvider = "Create project with the help of Builder",
-            dataProviderClass = ProjectProvider.class)
+            dataProviderClass = ProjectProvider.class,
+            retryAnalyzer = Retry.class)
     public void createProjectTestBoundaryValueAnalysis(Project project) {
         final int PROJECT_NAME_LENGTH = 255;
 
@@ -139,7 +140,8 @@ public class SmokeUITests extends BaseTest {
     @Test(description = "Delete an existing Test Case",
             dataProvider = "Delete a Test Case",
             dataProviderClass = TestCaseProvider.class,
-            dependsOnMethods = "createTestCaseCreatingEntityTest")
+            dependsOnMethods = "createTestCaseCreatingEntityTest",
+            retryAnalyzer = Retry.class)
     public void deleteTestCaseDeletingEntityTest(Project project, TestCase testCase) {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
