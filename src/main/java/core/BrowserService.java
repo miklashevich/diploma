@@ -22,8 +22,8 @@ public class BrowserService {
                 WebDriverManager.getInstance(driverManagerType).setup();
 
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--start-maximized");
                 chromeOptions.addArguments("--disable-gpu");
+                chromeOptions.addArguments("--start-maximized");
                 chromeOptions.addArguments("--incognito");
                 chromeOptions.addArguments("--disable-popup-blocking");
 
