@@ -24,7 +24,6 @@
         <allure-maven.version>2.10.0</allure-maven.version>
         <maven-surefire.version>2.22.2</maven-surefire.version>
 
-
     </properties>
 
     <dependencies>
