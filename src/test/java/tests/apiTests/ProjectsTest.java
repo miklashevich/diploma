@@ -3,6 +3,7 @@ package tests.apiTests;
 import baseEntities.BaseApiTest;
 import dao.ProjectDaoImplementation;
 import helpers.project.ProjectHelper;
+import io.qameta.allure.*;
 import lombok.extern.slf4j.Slf4j;
 import models.project.Project;
 import org.apache.http.HttpStatus;
@@ -24,6 +25,15 @@ public class ProjectsTest extends BaseApiTest {
 
     ProjectHelper projectHelper = new ProjectHelper();
 
+    @Feature("Feature1")
+    @Story("Story9")
+    @Flaky
+    @Owner("Dzmitry Rudak")
+    @TmsLink("16")
+    @Link(name = "Text Link",
+            url = "https://thumbs.dreamstime.com/z/funny-cartoon-bug-vector-illustration-cute-beetle-50577038.jpg")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.MINOR)
     @Test
     public void getAllProjectsTest() {
 
@@ -33,6 +43,13 @@ public class ProjectsTest extends BaseApiTest {
         Assert.assertEquals(response, HttpStatus.SC_OK);
     }
 
+    @Feature("Feature1")
+    @Story("Story9")
+    @Flaky
+    @Owner("Dzmitry Rudak")
+    @TmsLink("16")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.CRITICAL)
     @Test(dependsOnMethods = "createNewProjectTestFromFile",
             priority = 1,
             dataProviderClass = ProjectProvider.class,
