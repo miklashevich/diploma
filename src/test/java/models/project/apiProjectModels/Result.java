@@ -1,10 +1,7 @@
-package models.project;
+package models.project.apiProjectModels;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.sun.istack.NotNull;
-import enums.AccessType;
-import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -12,13 +9,17 @@ import lombok.experimental.Accessors;
 @Data
 @ToString
 @Accessors(chain = true)
-public class GetProjectResponse {
+public class Result {
 
     @NotNull
     @Expose
-    private boolean status;
+    private String title;
 
     @NotNull
     @Expose
-    private Result result;
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
 }

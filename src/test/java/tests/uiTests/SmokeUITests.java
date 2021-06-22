@@ -2,6 +2,7 @@ package tests.uiTests;
 
 import baseEntities.BaseTest;
 import core.Retry;
+import io.qameta.allure.*;
 import lombok.extern.slf4j.Slf4j;
 import models.project.Project;
 import models.testcase.TestCase;
@@ -9,14 +10,28 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 import steps.*;
-import testData.StaticProvider;
+import testData.staticProviders.LoginProvider;
+import testData.staticProviders.ProjectProvider;
+import testData.staticProviders.TestCaseProvider;
+
+import java.util.concurrent.TimeoutException;
 
 @Slf4j
 public class SmokeUITests extends BaseTest {
 
+    @Feature("Feature1")
+    @Story("Story1")
+    @Flaky
+    @Owner("Dzmitry Rudak")
+    @TmsLink("16")
+    @Link(name = "Text Link",
+            url = "https://thumbs.dreamstime.com/z/funny-cartoon-bug-vector-illustration-cute-beetle-50577038.jpg")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Create new project",
             dataProvider = "Create project with the help of Builder",
-            dataProviderClass = StaticProvider.class, retryAnalyzer = Retry.class)
+            dataProviderClass = ProjectProvider.class,
+            retryAnalyzer = Retry.class)
     public void createProjectTestBoundaryValueAnalysis(Project project) {
         final int PROJECT_NAME_LENGTH = 255;
 
@@ -40,9 +55,16 @@ public class SmokeUITests extends BaseTest {
                 PROJECT_NAME_LENGTH);
     }
 
+    @Feature("Feature1")
+    @Story("Story2")
+    @Flaky
+    @Owner("Andrei Miklashevich")
+    @TmsLink("16")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.NORMAL)
     @Test(description = "Create new project with name length more than permitted ",
             dataProvider = "Create project with the name more than 255",
-            dataProviderClass = StaticProvider.class)
+            dataProviderClass = ProjectProvider.class)
     public void createProjectTestLengthNameMorePermitted(String projectName, Project project) {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -64,9 +86,18 @@ public class SmokeUITests extends BaseTest {
                 "The title may not be greater than 255 characters.");
     }
 
+    @Feature("Feature2")
+    @Story("Story3")
+    @Flaky
+    @Owner("Dzmitry Rudak")
+    @TmsLink("16")
+    @Link(name = "Text Link",
+            url = "https://thumbs.dreamstime.com/z/funny-cartoon-bug-vector-illustration-cute-beetle-50577038.jpg")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Create new Test Case",
             dataProvider = "Create a Test Case",
-            dataProviderClass = StaticProvider.class)
+            dataProviderClass = TestCaseProvider.class)
     public void createTestCaseCreatingEntityTest(Project project, TestCase testCase) {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -99,12 +130,18 @@ public class SmokeUITests extends BaseTest {
         );
     }
 
+    @Feature("Feature2")
+    @Story("Story4")
+    @Flaky
+    @Owner("Dzmitry Rudak")
+    @TmsLink("16")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.NORMAL)
     @Test(description = "Delete an existing Test Case",
             dataProvider = "Delete a Test Case",
-            dataProviderClass = StaticProvider.class,
+            dataProviderClass = TestCaseProvider.class,
             dependsOnMethods = "createTestCaseCreatingEntityTest", retryAnalyzer = Retry.class)
     public void deleteTestCaseDeletingEntityTest(Project project, TestCase testCase) {
-
 
         LoginSteps loginSteps = new LoginSteps(browserService);
         loginSteps
@@ -119,14 +156,23 @@ public class SmokeUITests extends BaseTest {
                 .deleteTestCase(testCase)
                 .openTestRepositoryOfPublicProjectPage(false);
 
-
-        Assert.assertFalse(new TestRepositoryOfPublicProjectPage(browserService, false)
+        Assert.assertFalse(
+                new TestRepositoryOfPublicProjectPage(browserService, false)
                 .getAllTestCasesByName(testCase.getTitle()).size() > 0);
-
     }
 
-    @Test(description = "Login with incorrect credential", dataProvider = "use incorrect credential",
-            dataProviderClass = StaticProvider.class)
+    @Feature("Feature3")
+    @Story("Story5")
+    @Flaky
+    @Owner("Andrei Miklashevich")
+    @TmsLink("16")
+    @Link(name = "Text Link",
+            url = "https://thumbs.dreamstime.com/z/funny-cartoon-bug-vector-illustration-cute-beetle-50577038.jpg")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Login with incorrect credential",
+            dataProvider = "Use Incorrect Credentials",
+            dataProviderClass = LoginProvider.class)
     public void loginWithIncorrectCredentialTest(String email, String password) {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -140,6 +186,13 @@ public class SmokeUITests extends BaseTest {
                 "These credentials do not match our records.");
     }
 
+    @Feature("Feature4")
+    @Story("Story6")
+    @Flaky
+    @Owner("Dzmitry Rudak")
+    @TmsLink("16")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Attachment to profile", retryAnalyzer = Retry.class)
     public void uploadAttachmentTest1() {
 
@@ -162,7 +215,16 @@ public class SmokeUITests extends BaseTest {
                 profileImageUpdate.getProfileImage().getAttribute("data-src"));
 
     }
-    @Test(description = "pop-up message test")
+
+    @Feature("Feature4")
+    @Story("Story7")
+    @Flaky
+    @Owner("Andrei Miklashevich")
+    @TmsLink("16")
+    @Link(name = "Text Link", url = "https://thumbs.dreamstime.com/z/funny-cartoon-bug-vector-illustration-cute-beetle-50577038.jpg")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Validation of a Pop-up Message Test")
     public void popUpTest() {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -182,12 +244,21 @@ public class SmokeUITests extends BaseTest {
 
         Assert.assertEquals(profilePage
                 .getAlertMessage()
-                .getText(),"Profile data was successfully updated.");
-
+                .getText(), "Profile data was successfully updated.");
     }
-    @Test(description = "bug reproduce",
+
+    @Feature("Feature1")
+    @Story("Story8")
+    @Flaky
+    @Owner("Andrei Miklashevich")
+    @TmsLink("16")
+    @Link(name = "Text Link", url = "https://thumbs.dreamstime.com/z/funny-cartoon-bug-vector-illustration-cute-beetle-50577038.jpg")
+    @Issue("QO-88")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Failing Scenario Test",
             dataProvider = "Create project with the help of Builder",
-            dataProviderClass = StaticProvider.class)
+            dataProviderClass = ProjectProvider.class,
+            expectedExceptions = TimeoutException.class)
     public void bugReproduceTest(Project project) {
 
         LoginSteps loginSteps = new LoginSteps(browserService);
@@ -210,8 +281,6 @@ public class SmokeUITests extends BaseTest {
 
         Assert.assertEquals(projectSettingPage
                 .getAlertMessage()
-                .getText(),"Project settings were successfully updated!");
-
-
+                .getText(), "Project settings were successfully updated!");
     }
 }

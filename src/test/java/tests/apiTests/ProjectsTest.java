@@ -6,10 +6,9 @@ import helpers.project.ProjectHelper;
 import lombok.extern.slf4j.Slf4j;
 import models.project.Project;
 import org.apache.http.HttpStatus;
-//import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import testData.StaticProvider;
+import testData.staticProviders.ProjectProvider;
 import utils.ObjectUtil;
 
 import java.io.File;
@@ -34,9 +33,9 @@ public class ProjectsTest extends BaseApiTest {
         Assert.assertEquals(response, HttpStatus.SC_OK);
     }
 
-    @Test(dependsOnMethods = "createNewProjectTest",
+    @Test(dependsOnMethods = "createNewProjectTestFromFile",
             priority = 1,
-            dataProviderClass = StaticProvider.class,
+            dataProviderClass = ProjectProvider.class,
             dataProvider = "Create project for DB")
     public void getProjectTest(Project project) throws IOException, SQLException {
 
@@ -58,7 +57,7 @@ public class ProjectsTest extends BaseApiTest {
     }
 
     @Test
-    public void createNewProjectTest() throws IOException {
+    public void createNewProjectTestFromFile() throws IOException {
 
         Reader reader = Files.newBufferedReader(Paths.get("src", "test", "java", "testData", "newProjectData.json"));
         File jsonDataInFile = new File(String.valueOf(Paths.get("src", "test", "java", "testData", "newProjectData.json")));
