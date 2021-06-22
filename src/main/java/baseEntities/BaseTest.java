@@ -5,9 +5,7 @@ import core.BrowserService;
 import core.ReadProperties;
 import org.testng.annotations.*;
 import utils.TestListener;
-import utils.Waits;
 
-import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
