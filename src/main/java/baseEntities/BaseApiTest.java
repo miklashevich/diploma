@@ -12,7 +12,6 @@ public class BaseApiTest {
 
     @BeforeTest
     public void setupTest() {
-//        org.apache.log4j2.BasicConfigurator.configure();
 
         RestAssured.baseURI = ReadProperties.getAPIUrl();
         RestAssured.requestSpecification = given()
